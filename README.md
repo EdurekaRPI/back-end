@@ -94,39 +94,6 @@ cd Edureka
 
 ---
 
-## 📅 **Milestones**
-
-### **September:**
-- Initial discussions with **Study Compass** and **RPI EventHub** regarding event planning.
-- Define app architecture and technical stacks.
-- Assign team roles.
-- Draft and finalize the design wireframe.
-- Collaborate with external teams to build and validate the REST API.
-
-### **October:**
-- Begin the development phase.
-- Deliver first GUI demo by late October.
-- Conduct beta testing and gather user feedback.
-- Implement changes based on feedback.
-
-### **November:**
-- Revise the GUI demo based on beta test feedback.
-- Continue refining for the final presentation.
-
-### **December:**
-- Deliver the **Final Semester Presentation**.
-- Document the progress for future project development.
-
----
-
-## 👥 **Team Members**
-- **Wesley Turner** – [wdturner@cs.rpi.edu](mailto:wdturner@cs.rpi.edu) *(Lead)*
-- **Josh Parent** – [parenj2@rpi.edu](mailto:parenj2@rpi.edu)
-- **Anjini Jamwal** – [jamwaa@rpi.edu](mailto:jamwaa@rpi.edu)
-- **Fangxin Liu** – [liuf8@rpi.edu](mailto:liuf8@rpi.edu)
-
----
-
 ## 📝 **License**
 This project is licensed under the **MIT License**.
 
