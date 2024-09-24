@@ -33,7 +33,6 @@ Edureka is a university-wide dashboard designed to assist **President Schmidt’
 - **React.js**
 - **Tailwind CSS**
 - **Axios**
-- **Figma** (for wireframe and design)
 
 ### **Backend**
 - **Express.js**
