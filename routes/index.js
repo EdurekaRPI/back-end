@@ -1,41 +1,29 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-const port = 3000;
 
-// Middleware to parse JSON
+// Middleware to parse incoming JSON requests
 app.use(express.json());
 
-// MongoDB's connection string (local or Atlas)
-const mongoURI = 'mongodb://localhost:27017/myapp';
+// MongoDB connection URL
+const dbURI = 'mongodb://localhost:27017/myDatabase'; // Use the local MongoDB URL
 
-// Connect to MongoDB
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.log(err));
+// Connect to MongoDB using Mongoose
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+      console.log('Connected to MongoDB');
+    })
+    .catch((err) => {
+      console.error('Error connecting to MongoDB:', err);
+    });
 
-// Define a schema and model
-const userSchema = new mongoose.Schema({
-  name: String,
-  email: String,
-  age: Number
-});
-const User = mongoose.model('User', userSchema);
-
-// Define route to add a user
-app.post('/users', async (req, res) => {
-  const { name, email, age } = req.body;
-
-  try {
-    const newUser = new User({ name, email, age });
-    await newUser.save();
-    res.status(201).send('User created');
-  } catch (error) {
-    res.status(500).send('Error creating user');
-  }
+// Define a simple route to verify the app works
+app.get('/', (req, res) => {
+  res.send('Hello World');
 });
 
 // Start the server
-app.listen(port, () => {
-  console.log('Server is running on http://localhost:${port}');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
