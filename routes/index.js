@@ -1,95 +1,74 @@
-// Import required modules
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const User = require('../models/user');
+const Event = require('../models/event');
+
 const app = express();
+app.use(bodyParser.json());
 
-// Middleware to parse incoming JSON requests
-app.use(express.json());
-
-// MongoDB connection URL
-const dbURI = 'mongodb://localhost:27017/myDatabase';
-
-// Connect to MongoDB using Mongoose
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
-        console.log('Connected to MongoDB');
-    })
-    .catch((err) => {
-        console.error('Error connecting to MongoDB:', err);
-    });
-
-// Import the User and Event models
-const User = require('../models/user');  // Updated path
-const Event = require('../models/events'); // Updated path
-
-// Define a simple route to verify the app works
-app.get('/', (req, res) => {
-    res.send('Hello World');
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost:27017/EventApp', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 });
 
-// *************** USER ROUTES ***************
-// Create a new user (POST request)
-app.post('/users', async (req, res) => {
-    const user = new User({
-        userID: req.body.userID,
-        password: req.body.password
-    });
+// Test route
+app.get('/', (req, res) => {
+    res.send('Connected');
+});
 
+// Route for registering a new user (both students and admins)
+app.post('/users', async (req, res) => {
     try {
-        const savedUser = await user.save();
+        const { userID, password, role } = req.body;
+
+        // Validate role
+        if (!['Student', 'Admin'].includes(role)) {
+            return res.status(400).send('Invalid role. Role must be either Student or Admin.');
+        }
+
+        const newUser = new User({
+            userID,
+            password,
+            role // Role can be 'Student' or 'Admin'
+        });
+
+        const savedUser = await newUser.save();
         res.status(201).send(savedUser);
     } catch (err) {
-        res.status(400).send(err);
-    }
-});
-
-// Get all users (GET request)
-app.get('/users', async (req, res) => {
-    try {
-        const users = await User.find();
-        res.status(200).send(users);
-    } catch (err) {
         res.status(500).send(err);
     }
 });
 
-// Update a user by ID (PUT request)
-app.put('/users/:id', async (req, res) => {
-    try {
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        res.status(200).send(updatedUser);
-    } catch (err) {
-        res.status(400).send(err);
-    }
-});
-
-// Delete a user by ID (DELETE request)
-app.delete('/users/:id', async (req, res) => {
-    try {
-        await User.findByIdAndDelete(req.params.id);
-        res.status(200).send('User deleted');
-    } catch (err) {
-        res.status(500).send(err);
-    }
-});
-
-// *************** EVENT ROUTES ***************
-// Create a new event (POST request)
+// Route for creating a new event (accessible by students and admins)
 app.post('/events', async (req, res) => {
-    const event = new Event({
-        eventName: req.body.eventName,
-        eventDescription: req.body.eventDescription
-    });
-
     try {
-        const savedEvent = await event.save();
+        const { userId, eventName, eventDescription, dateOfEvent, checklist, approvalRequired } = req.body;
+
+        // Find the user
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        // Create the event
+        const newEvent = new Event({
+            eventName,
+            eventDescription,
+            dateOfEvent,
+            checklist,
+            approvalRequired
+        });
+
+        const savedEvent = await newEvent.save();
         res.status(201).send(savedEvent);
     } catch (err) {
-        res.status(400).send(err);
+        res.status(500).send(err);
     }
 });
 
-// Get all events (GET request)
+// Route for getting all events
 app.get('/events', async (req, res) => {
     try {
         const events = await Event.find();
@@ -99,28 +78,71 @@ app.get('/events', async (req, res) => {
     }
 });
 
-// Update an event by ID (PUT request)
-app.put('/events/:id', async (req, res) => {
+// Get all users
+app.get('/users', async (req, res) => {
     try {
-        const updatedEvent = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        res.status(200).send(updatedEvent);
+        const users = await User.find(); // Fetch all users from the database
+        res.status(200).json(users); // Send the result as a JSON response
     } catch (err) {
-        res.status(400).send(err);
+        res.status(500).json({ error: 'Failed to fetch users' });
     }
 });
 
-// Delete an event by ID (DELETE request)
-app.delete('/events/:id', async (req, res) => {
+// Route for an admin to approve or deny an event
+app.put('/events/:id/approve', async (req, res) => {
+    const { userId, approvalStatus } = req.body;
+
     try {
-        await Event.findByIdAndDelete(req.params.id);
+        // Find the user and check their role
+        const user = await User.findById(userId);
+        if (!user || user.role !== 'Admin') {
+            return res.status(403).send('Permission denied');
+        }
+
+        // Find the event by ID
+        const event = await Event.findById(req.params.id);
+        if (!event) {
+            return res.status(404).send('Event not found');
+        }
+
+        // Update the approval status
+        event.approvalStatus = approvalStatus;
+        if (approvalStatus === 'Approved') {
+            event.approvedBy = userId;
+        }
+
+        const updatedEvent = await event.save();
+        res.status(200).send(updatedEvent);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+// Route to delete an event (accessible by admins)
+app.delete('/events/:id', async (req, res) => {
+    const { userId } = req.body;
+
+    try {
+        // Find the user and check if they are an admin
+        const user = await User.findById(userId);
+        if (!user || user.role !== 'Admin') {
+            return res.status(403).send('Permission denied');
+        }
+
+        // Delete the event
+        const event = await Event.findByIdAndDelete(req.params.id);
+        if (!event) {
+            return res.status(404).send('Event not found');
+        }
+
         res.status(200).send('Event deleted');
     } catch (err) {
         res.status(500).send(err);
     }
 });
 
-// Start the server on port 3000
-const PORT = process.env.PORT || 3000;
+// Start the server
+const PORT = 3000;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
