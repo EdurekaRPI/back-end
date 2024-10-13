@@ -44,10 +44,10 @@ app.post('/users', async (req, res) => {
 // Route for creating a new event (accessible by students and admins)
 app.post('/events', async (req, res) => {
     try {
-        const { userId, eventName, eventDescription, dateOfEvent, checklist, approvalRequired } = req.body;
+        const { userID, eventName, eventDescription, dateOfEvent, checklist, approvalRequired } = req.body;
 
-        // Find the user
-        const user = await User.findById(userId);
+        // Find the user by userID instead of MongoDB _id
+        const user = await User.findOne({ userID });
         if (!user) {
             return res.status(404).send('User not found');
         }
@@ -58,7 +58,8 @@ app.post('/events', async (req, res) => {
             eventDescription,
             dateOfEvent,
             checklist,
-            approvalRequired
+            approvalRequired,
+            createdBy: user._id
         });
 
         const savedEvent = await newEvent.save();
@@ -67,6 +68,7 @@ app.post('/events', async (req, res) => {
         res.status(500).send(err);
     }
 });
+
 
 // Route for getting all events
 app.get('/events', async (req, res) => {

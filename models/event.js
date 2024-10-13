@@ -13,13 +13,15 @@ const eventsSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    checklist: [{
-        task: String,
-        completed: {
-            type: Boolean,
-            default: false
-        }
-    }],
+    checklist: {
+        type: [String],
+        required: true
+    },
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     approvalRequired: {
         type: Boolean,
         default: false
