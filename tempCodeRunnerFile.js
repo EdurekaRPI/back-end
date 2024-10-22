@@ -1,1 +1,1 @@
-1
+mongodb://Admin:HtShXcVSu29MWqgcu@128.113.126.110:27017/admin

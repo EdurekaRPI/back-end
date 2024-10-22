@@ -17,17 +17,18 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // MongoDB connection
-const mongoURI = 'mongodb+srv://anjini:Cluster0@cluster0.n8vvg.mongodb.net/myapp?retryWrites=true&w=majority&appName=Cluster0'; // Update this
-mongoose.connect(mongoURI)
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
+const mongoURI = 'mongodb://Admin:HtShXcVSu29MWqgcu@128.113.126.110:27017/admin'; // Update this with your actual connection string
 
-mongoose.connect('mongodb://localhost/myapp', { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
+mongoose.connect(mongoURI, {
+    useNewUrlParser: true,  // You can remove this in newer versions
+    useUnifiedTopology: true // You can remove this in newer versions
+})
+.then(() => console.log('MongoDB connected'))
+.catch(err => console.error('MongoDB connection error:', err));
 
 // Use the defined routes
 app.use('/', indexRouter);
+app.use('/api', usersRouter); // Add usersRouter under '/api' path
 
 // Error handling (optional)
 app.use(function(req, res, next) {
@@ -35,8 +36,9 @@ app.use(function(req, res, next) {
 });
 
 // Start the server
-app.listen(3001, () => {
-  console.log('Server is running on http://localhost:3001');
+const PORT = process.env.PORT || 3001; // Use environment variable for the port
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
 
 module.exports = app;

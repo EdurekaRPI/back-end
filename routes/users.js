@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+// Example route for users
+router.get('/', (req, res) => {
+    res.send('User list will be here');
 });
 
 module.exports = router;
