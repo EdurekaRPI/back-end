@@ -1,43 +1,56 @@
 const mongoose = require('mongoose');
 
-const eventsSchema = new mongoose.Schema({
-    eventName: {
+const eventSchema = new mongoose.Schema({
+    title: {
         type: String,
         required: true
     },
-    eventDescription: {
+    description: {
         type: String,
         required: true
     },
-    dateOfEvent: {
+    likes: {
+        type: Number,
+        default: 0
+    },
+    poster: {
+        type: String,
+        required: true
+    },
+    date: {
         type: Date,
         required: true
     },
-    checklist: {
-        type: [String],
-        required: true
-    },
-    createdBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
-    approvalRequired: {
-        type: Boolean,
-        default: false
-    },
-    approvalStatus: {
+    location: {
         type: String,
-        enum: ['Pending', 'Approved', 'Denied'],
-        default: 'Pending'
+        required: true
     },
-    approvedBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: function() { return this.approvalStatus === 'Approved'; }
+    image: {
+        type: String,
+        required: true
+    },
+    tags: {
+        type: [String],
+        default: []
+    },
+    time: {
+        type: String,
+        required: true
+    },
+    club: {
+        type: String,
+        required: true
+    },
+    rsvp: {
+        type: String,
+        default: ""
+    },
+    creationTimestamp: {
+        type: Date,
+        default: Date.now
     }
-});
+}, { versionKey: false });
 
-const Event = mongoose.model('Event', eventsSchema);
+const Event = mongoose.model('Event', eventSchema);
 
 module.exports = Event;
