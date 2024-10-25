@@ -1,9 +1,10 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const usersData = require('../users.json'); // Adjusted to access users.json
 
-// Example route for users
-router.get('/', (req, res) => {
-    res.send('User list will be here');
+// Define the route to serve users data
+router.get('/users', (req, res) => {
+    res.json(usersData);
 });
 
 module.exports = router;

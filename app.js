@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const usersRouter = require('./routes/users'); // Adjusted to rely on usersRouter
 
 const app = express();
 
@@ -20,15 +20,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 const mongoURI = 'mongodb://Admin:HtShXcVSu29MWqgcu@128.113.126.110:27017/admin'; // Update this with your actual connection string
 
 mongoose.connect(mongoURI, {
-    useNewUrlParser: true,  // You can remove this in newer versions
-    useUnifiedTopology: true // You can remove this in newer versions
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 })
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.error('MongoDB connection error:', err));
 
 // Use the defined routes
 app.use('/', indexRouter);
-app.use('/api', usersRouter); // Add usersRouter under '/api' path
+app.use('/api', usersRouter); // '/api/users' will be handled in usersRouter
 
 // Error handling (optional)
 app.use(function(req, res, next) {
@@ -36,7 +36,7 @@ app.use(function(req, res, next) {
 });
 
 // Start the server
-const PORT = process.env.PORT || 3001; // Use environment variable for the port
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
