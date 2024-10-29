@@ -1,19 +1,32 @@
-fetch('http://localhost:3001/api/users') // Replace with the actual endpoint
+fetch('http://localhost:3001/api/users')
     .then(response => response.json())
     .then(data => {
-        console.log(data); // Log to see the structure
+        console.log(data); // Check if data is logged
         const tableBody = document.querySelector('#userTable tbody');
+        if (!tableBody) {
+            console.error("Table body element not found!");
+            return;
+        }
         data.forEach(event => {
-            console.log(event); // Log each event to verify properties
+            console.log(event); // Log each event to confirm structure
+
+            const title = event.title || 'N/A';
+            const description = event.description || 'N/A';
+            const location = event.location || 'N/A';
+            const time = event.time || 'N/A';
+            const club = event.club || 'N/A';
+            const date = event.date && event.date.$date ? new Date(event.date.$date).toLocaleDateString() : 'N/A';
+            const image = event.image ? `<img src="${event.image}" alt="Event Image" width="50" />` : 'No Image';
+
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${event.title}</td>
-                <td>${event.description}</td>
-                <td>${event.location}</td>
-                <td>${event.time}</td>
-                <td>${event.club}</td>
-                <td>${new Date(event.date.$date).toLocaleDateString()}</td>
-                <td><img src="${event.image}" alt="Event Image" width="50" /></td>
+                <td>${title}</td>
+                <td>${description}</td>
+                <td>${location}</td>
+                <td>${time}</td>
+                <td>${club}</td>
+                <td>${date}</td>
+                <td>${image}</td>
             `;
             tableBody.appendChild(row);
         });
