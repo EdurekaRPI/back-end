@@ -7,17 +7,17 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    background-color: #f8f8f8;
+    background-color: #82e497;
 }
 
 table, th, td {
-    border: 1px solid #ddd;
+    border: 1px solid #080808;
     padding: 10px;
     text-align: left;
 }
 
 th {
-    background-color: #333;
+    background-color: #047727;
     color: #fff;
     font-weight: bold;
     text-transform: uppercase;
