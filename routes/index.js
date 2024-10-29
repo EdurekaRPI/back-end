@@ -2,18 +2,20 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 
-const User = require('./models/User');
-const Event = require('./models/Event');
-const PlanningTool = require('./models/PlanningTool');
+const User = require('./models/user');
+const Event = require('./models/event');
+const PlanningTool = require('./models/planning');
 
 const app = express();
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/EventApp', {
+mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
-});
+    useUnifiedTopology: true,
+})
+    .then(() => console.log('Connected to DB'))
+    .catch((err) => console.error('Connection error :(', err));
 
 // Routes
 
@@ -57,10 +59,17 @@ app.post('/events', async (req, res) => {
 // Create a new planning tool entry linked to an event
 app.post('/planningTools', async (req, res) => {
     try {
-        const { eventId, createdBy } = req.body;
+        const { eventId, createdByUserID } = req.body;
+
+        // Find the user by userID
+        const creator = await User.findOne({ userID: createdByUserID });
+        if (!creator) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
         const planningTool = new PlanningTool({
             event: eventId,
-            createdBy
+            createdBy: creator.userID
         });
         await planningTool.save();
         res.status(201).json(planningTool);
@@ -72,21 +81,21 @@ app.post('/planningTools', async (req, res) => {
 // Approve an event (Admin only)
 app.post('/planningTools/:id/approve', async (req, res) => {
     try {
-        const { adminId } = req.body;
+        const { adminUserID } = req.body;
         const planningTool = await PlanningTool.findById(req.params.id);
 
         if (!planningTool) {
             return res.status(404).json({ error: 'PlanningTool entry not found' });
         }
 
-        // Find the admin user and verify role
-        const adminUser = await User.findById(adminId);
+        // Find the admin user by userID and verify role
+        const adminUser = await User.findOne({ userID: adminUserID });
         if (!adminUser || adminUser.role !== 'Admin') {
             return res.status(403).json({ error: 'Only admins can approve events' });
         }
 
         planningTool.isApproved = true;
-        planningTool.approvedBy = adminUser._id;
+        planningTool.approvedBy = adminUser.userID;
         await planningTool.save();
 
         res.status(200).json({ message: 'Event approved successfully', planningTool });
