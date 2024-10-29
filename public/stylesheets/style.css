@@ -1,12 +1,12 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif, sans-serif;
+    margin: 30px;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 30px;
     background-color: #82e497;
 }
 
@@ -18,13 +18,13 @@ table, th, td {
 
 th {
     background-color: #047727;
-    color: #fff;
+    color: #ffffff;
     font-weight: bold;
     text-transform: uppercase;
 }
 
 td {
-    color: #333;
+    color: #0f460d;
 }
 
 tr:nth-child(even) {
