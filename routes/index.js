@@ -1,111 +1,74 @@
-require('dotenv').config();
+require('dotenv').config({ path: '../.env' });
+
 const express = require('express');
 const mongoose = require('mongoose');
+const Event = require('../models/eventModelSuperset');
 
-const User = require('./models/user');
-const Event = require('./models/event');
-const PlanningTool = require('./models/planning');
+const { MongoURI } = process.env;
 
 const app = express();
+
 app.use(express.json());
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-    .then(() => console.log('Connected to DB'))
-    .catch((err) => console.error('Connection error :(', err));
-
-// Routes
-
-// Create a new user
-app.post('/users', async (req, res) => {
-    try {
-        const { userID, password, role } = req.body;
-        const user = new User({ userID, password, role });
-        await user.save();
-        res.status(201).json(user);
-    } catch (err) {
-        res.status(400).json({ error: err.message });
+async function connectToDB() {
+    if (!MongoURI) {
+        console.error('MongoURI is not defined in the .env file');
+        return;
     }
-});
 
-// Create a new event
+    try {
+        // Attempt to connect to MongoDB using the MongoURI
+        await mongoose.connect(MongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+        console.log('Successfully connected to MongoDB');
+    } catch (err) {
+        console.error('Error connecting to MongoDB:', err);
+    }
+}
+
+// Connect to the database
+connectToDB();
+
+// Route to add a new event
 app.post('/events', async (req, res) => {
     try {
-        const { title, description, likes, poster, date, location, image, tags, time, club, rsvp } = req.body;
-        const event = new Event({
-            title,
-            description,
-            likes,
-            poster,
-            date,
-            location,
-            image,
-            tags,
-            time,
-            club,
-            rsvp,
-            creationTimestamp: new Date()
-        });
-        await event.save();
-        res.status(201).json(event);
+        const eventData = req.body;  // Event data from request body
+
+        // Create a new Event instance
+        const event = new Event(eventData);
+
+        // Save the event to the database
+        const savedEvent = await event.save();
+
+        // Respond with the saved event
+        res.status(201).json(savedEvent);
     } catch (err) {
-        res.status(400).json({ error: err.message });
+        console.error('Error adding event:', err);
+        res.status(500).json({ error: 'Failed to add event. Please try again.' });
     }
 });
 
-// Create a new planning tool entry linked to an event
-app.post('/planningTools', async (req, res) => {
+// Route to delete an event by ID
+app.delete('/events/:id', async (req, res) => {
+    const { id } = req.params;
+
     try {
-        const { eventId, createdByUserID } = req.body;
+        // Find and delete the event by ID
+        const deletedEvent = await Event.findByIdAndDelete(id);
 
-        // Find the user by userID
-        const creator = await User.findOne({ userID: createdByUserID });
-        if (!creator) {
-            return res.status(404).json({ error: 'User not found' });
+        if (!deletedEvent) {
+            return res.status(404).json({ error: 'Event not found.' });
         }
 
-        const planningTool = new PlanningTool({
-            event: eventId,
-            createdBy: creator.userID
-        });
-        await planningTool.save();
-        res.status(201).json(planningTool);
+        // Respond with a success message
+        res.status(200).json({ message: 'Event deleted successfully.' });
     } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
-});
-
-// Approve an event (Admin only)
-app.post('/planningTools/:id/approve', async (req, res) => {
-    try {
-        const { adminUserID } = req.body;
-        const planningTool = await PlanningTool.findById(req.params.id);
-
-        if (!planningTool) {
-            return res.status(404).json({ error: 'PlanningTool entry not found' });
-        }
-
-        // Find the admin user by userID and verify role
-        const adminUser = await User.findOne({ userID: adminUserID });
-        if (!adminUser || adminUser.role !== 'Admin') {
-            return res.status(403).json({ error: 'Only admins can approve events' });
-        }
-
-        planningTool.isApproved = true;
-        planningTool.approvedBy = adminUser.userID;
-        await planningTool.save();
-
-        res.status(200).json({ message: 'Event approved successfully', planningTool });
-    } catch (err) {
-        res.status(400).json({ error: err.message });
+        console.error('Error deleting event:', err);
+        res.status(500).json({ error: 'Failed to delete event. Please try again.' });
     }
 });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`Server avail on port ${PORT}`);
 });

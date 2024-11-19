@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const eventModelSuperset = new mongoose.Schema({
 
     // Superset of Study Compass and Event Hub
+    eventID: { type: String, required: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
     typeOfEvent: { type: String, required: true },
@@ -118,10 +119,13 @@ const eventModelSuperset = new mongoose.Schema({
 
     // Other event details
     attendanceIncentives: { type: Array, default: [] },
+    executiveBriefing: { type: String},
+    postmortemNotes: { type: String},
+
 
 
 }, { versionKey: false });
 
-const Event = mongoose.model('Event', eventSchema);
+const Event = mongoose.model('Event', eventModelSuperset);
 
 module.exports = Event;
