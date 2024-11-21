@@ -47,6 +47,28 @@ app.post('/events', async (req, res) => {
     }
 });
 
+// Route to edit (update) an event by ID
+app.put('/events/:id', async (req, res) => {
+    const { id } = req.params;
+    const updatedData = req.body;  // Data to update from the request body
+
+    try {
+        // Find the event by ID and update with the provided data
+        const updatedEvent = await Event.findByIdAndUpdate(id, updatedData, { new: true });
+
+        // If event not found, return a 404 error
+        if (!updatedEvent) {
+            return res.status(404).json({ error: 'Event not found.' });
+        }
+
+        // Respond with the updated event
+        res.status(200).json(updatedEvent);
+    } catch (err) {
+        console.error('Error updating event:', err);
+        res.status(500).json({ error: 'Failed to update event. Please try again.' });
+    }
+});
+
 // Route to delete an event by ID
 app.delete('/events/:id', async (req, res) => {
     const { id } = req.params;
