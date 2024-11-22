@@ -47,6 +47,41 @@ app.post('/events', async (req, res) => {
     }
 });
 
+// Route to get all events
+app.get('/events', async (req, res) => {
+    try {
+        // Fetch all events from the database
+        const events = await Event.find();
+
+        // Respond with the list of events
+        res.status(200).json(events);
+    } catch (err) {
+        console.error('Error fetching events:', err);
+        res.status(500).json({ error: 'Failed to fetch events. Please try again.' });
+    }
+});
+
+// Route to get a specific event by ID
+app.get('/events/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        // Find the event by ID
+        const event = await Event.findById(id);
+
+        // If the event is not found, return a 404 error
+        if (!event) {
+            return res.status(404).json({ error: 'Event not found.' });
+        }
+
+        // Respond with the event details
+        res.status(200).json(event);
+    } catch (err) {
+        console.error('Error fetching event:', err);
+        res.status(500).json({ error: 'Failed to fetch event. Please try again.' });
+    }
+});
+
 // Route to edit (update) an event by ID
 app.put('/events/:id', async (req, res) => {
     const { id } = req.params;
