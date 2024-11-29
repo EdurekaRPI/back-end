@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d025bfda-b77c-40cb-a5d7-5e3d08d76c65" name="Changes" comment="Added functionality for new model" />
+    <list default="true" id="d025bfda-b77c-40cb-a5d7-5e3d08d76c65" name="Changes" comment="Added get all &amp; get specific method">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/eventModelSuperset.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/eventModelSuperset.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,7 +17,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Test-dev--Josh" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -29,26 +33,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Node.js.bin/www.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.index.js.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.user.js.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Josh-Experimental&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;22.9.0&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;22.7.5&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Applications/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Node.js.app.js.executor": "Run",
+    "Node.js.bin/www.executor": "Run",
+    "Node.js.index.js.executor": "Run",
+    "Node.js.user.js.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Josh-Experimental",
+    "javascript.nodejs.core.library.configured.version": "22.9.0",
+    "javascript.nodejs.core.library.typings.version": "22.7.5",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "node",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/routes" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -69,6 +80,7 @@
       <workItem from="1727469327754" duration="10725000" />
       <workItem from="1728419022991" duration="7649000" />
       <workItem from="1729906669753" duration="89000" />
+      <workItem from="1730233752895" duration="38374000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <option name="closed" value="true" />
@@ -118,7 +130,87 @@
       <option name="project" value="LOCAL" />
       <updated>1729906710535</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Fixed a bug where users were being searched by database _id instead of their userID.  Also added a file that I forgot to add to Git.">
+      <option name="closed" value="true" />
+      <created>1730236315534</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1730236315534</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added other groups models and comparison document">
+      <option name="closed" value="true" />
+      <created>1730496840049</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1730496840049</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added other groups models and comparison document">
+      <option name="closed" value="true" />
+      <created>1730496865458</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1730496865458</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Added other groups models and comparison document">
+      <option name="closed" value="true" />
+      <created>1730496877124</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1730496877124</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Added a new model as a superset of Event Hub and Study Compass.  Began adding Edureka specific data as well.">
+      <option name="closed" value="true" />
+      <created>1730844826239</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1730844826239</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Added the majority of the remaining Edureka specific event information to the schema">
+      <option name="closed" value="true" />
+      <created>1731103354395</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1731103354395</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Added event model to main">
+      <option name="closed" value="true" />
+      <created>1731104541021</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1731104541021</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Updated the schema.  Also added the post and delete methods.">
+      <option name="closed" value="true" />
+      <created>1732055332342</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1732055332342</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Added edit method">
+      <option name="closed" value="true" />
+      <created>1732219932150</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1732219932150</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Added get all &amp; get specific method">
+      <option name="closed" value="true" />
+      <created>1732239435487</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1732239435487</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -142,6 +234,14 @@
     <MESSAGE value="Updated models for more detailed events.  Bug does exist when trying to add event with a user id." />
     <MESSAGE value="Created a new branch, updated/added models" />
     <MESSAGE value="Added functionality for new model" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added functionality for new model" />
+    <MESSAGE value="Fixed a bug where users were being searched by database _id instead of their userID.  Also added a file that I forgot to add to Git." />
+    <MESSAGE value="Added other groups models and comparison document" />
+    <MESSAGE value="Added a new model as a superset of Event Hub and Study Compass.  Began adding Edureka specific data as well." />
+    <MESSAGE value="Added the majority of the remaining Edureka specific event information to the schema" />
+    <MESSAGE value="Added event model to main" />
+    <MESSAGE value="Updated the schema.  Also added the post and delete methods." />
+    <MESSAGE value="Added edit method" />
+    <MESSAGE value="Added get all &amp; get specific method" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added get all &amp; get specific method" />
   </component>
 </project>

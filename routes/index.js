@@ -2,14 +2,36 @@ require('dotenv').config({ path: '../.env' });
 
 const express = require('express');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
 const Event = require('../models/eventModelSuperset');
 
 const { MongoURI } = process.env;
 
 const app = express();
 
+// Middleware
+
+// Log incoming requests
+app.use(morgan('dev'));
+
+// Parse JSON bodies
 app.use(express.json());
 
+// Parse URL-encoded bodies (for form submissions)
+app.use(express.urlencoded({ extended: false }));
+
+// Example Authentication Middleware
+const checkAuthentication = (req, res, next) => {
+    if (!req.headers['authorization']) {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
+    next(); // If authorization header exists, continue to next middleware/route
+};
+
+// Use the authentication middleware for all routes under `/events`
+app.use('/events', checkAuthentication);
+
+// Connect to MongoDB
 async function connectToDB() {
     if (!MongoURI) {
         console.error('MongoURI is not defined in the .env file');
@@ -17,7 +39,6 @@ async function connectToDB() {
     }
 
     try {
-        // Attempt to connect to MongoDB using the MongoURI
         await mongoose.connect(MongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
         console.log('Successfully connected to MongoDB');
     } catch (err) {
@@ -27,6 +48,8 @@ async function connectToDB() {
 
 // Connect to the database
 connectToDB();
+
+// Routes
 
 // Route to add a new event
 app.post('/events', async (req, res) => {
@@ -124,8 +147,14 @@ app.delete('/events/:id', async (req, res) => {
     }
 });
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack); // Log error details to the console
+    res.status(500).json({ message: 'Something went wrong!' }); // Generic error response
+});
+
 // Start the server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-    console.log(`Server avail on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });

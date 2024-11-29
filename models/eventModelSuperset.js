@@ -20,6 +20,7 @@ const eventModelSuperset = new mongoose.Schema({
     tags: {type: [String] },
     club: { type: String, required: true },
     rsvpMethod: { type: String },
+    externalRef: { type: mongoose.Schema.ObjectId },
 
     // Edureka specific
 
