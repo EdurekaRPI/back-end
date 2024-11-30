@@ -70,12 +70,10 @@ async function connectToDB() {
 // Connect to the database
 connectToDB();
 
-// Routes
-
-// Route to add a new event
-app.post('/events', async (req, res) => {
+// POST route to add a new event
+app.post('/events', authenticateUser, checkUserRole('eventsReadWrite'), async (req, res) => {
     try {
-        const eventData = req.body;  // Event data from request body
+        const eventData = req.body; // Event data from request body
 
         // Create a new Event instance
         const event = new Event(eventData);
@@ -91,8 +89,8 @@ app.post('/events', async (req, res) => {
     }
 });
 
-// Route to get all events
-app.get('/events', async (req, res) => {
+// GET route to fetch all events
+app.get('/events', authenticateUser, checkUserRole('eventsReadWrite'), async (req, res) => {
     try {
         // Fetch all events from the database
         const events = await Event.find();
@@ -105,8 +103,8 @@ app.get('/events', async (req, res) => {
     }
 });
 
-// Route to get a specific event by ID
-app.get('/events/:id', async (req, res) => {
+// GET route to fetch a specific event by ID
+app.get('/events/:id', authenticateUser, checkUserRole('eventsReadWrite'), async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -126,8 +124,8 @@ app.get('/events/:id', async (req, res) => {
     }
 });
 
-// Route to edit (update) an event by ID
-app.put('/events/:id', async (req, res) => {
+// PUT route to edit (update) an event by ID
+app.put('/events/:id', authenticateUser, checkUserRole('eventsReadWrite'), async (req, res) => {
     const { id } = req.params;
     const updatedData = req.body;  // Data to update from the request body
 
@@ -148,8 +146,8 @@ app.put('/events/:id', async (req, res) => {
     }
 });
 
-// Route to delete an event by ID
-app.delete('/events/:id', async (req, res) => {
+// DELETE route to delete an event by ID
+app.delete('/events/:id', authenticateUser, checkUserRole('eventsReadWrite'), async (req, res) => {
     const { id } = req.params;
 
     try {
