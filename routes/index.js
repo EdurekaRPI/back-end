@@ -3,33 +3,54 @@ require('dotenv').config({ path: '../.env' });
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const jwt = require('jsonwebtoken');
 const Event = require('../models/eventModelSuperset');
 
-const { MongoURI } = process.env;
+const { MongoURI, JWT_SECRET } = process.env;
 
 const app = express();
 
-// Middleware
-
-// Log incoming requests
+// Middleware to log incoming requests
 app.use(morgan('dev'));
 
-// Parse JSON bodies
+// Middleware to parse JSON and URL-encoded data
 app.use(express.json());
-
-// Parse URL-encoded bodies (for form submissions)
 app.use(express.urlencoded({ extended: false }));
 
-// Example Authentication Middleware
-const checkAuthentication = (req, res, next) => {
-    if (!req.headers['authorization']) {
-        return res.status(401).json({ message: 'Unauthorized' });
+// Authentication middleware to verify JWT token
+const authenticateUser = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    if (!authHeader) {
+        return res.status(401).json({ message: 'Unauthorized: No token provided' });
     }
-    next(); // If authorization header exists, continue to next middleware/route
+
+    const token = authHeader.split(' ')[1]; // Extract token from "Bearer <token>"
+    if (!token) {
+        return res.status(401).json({ message: 'Unauthorized: Token not found' });
+    }
+
+    // Verify the JWT token
+    jwt.verify(token, JWT_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ message: 'Unauthorized: Invalid token' });
+        }
+        req.user = decoded; // Attach decoded user info (including roles) to the request object
+        next();
+    });
 };
 
-// Use the authentication middleware for all routes under `/events`
-app.use('/events', checkAuthentication);
+// Middleware to check if the user has the required role
+const checkUserRole = (requiredRole) => {
+    return (req, res, next) => {
+        const roles = req.user.roles;  // The user's roles should be inside the JWT payload
+
+        if (!roles || !roles.includes(requiredRole)) {
+            return res.status(403).json({ message: 'Forbidden: Insufficient permissions' });
+        }
+
+        next(); // Proceed to the next middleware or route handler
+    };
+};
 
 // Connect to MongoDB
 async function connectToDB() {
@@ -39,7 +60,7 @@ async function connectToDB() {
     }
 
     try {
-        await mongoose.connect(MongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+        await mongoose.connect(MongoURI);
         console.log('Successfully connected to MongoDB');
     } catch (err) {
         console.error('Error connecting to MongoDB:', err);
@@ -154,7 +175,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
