@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const jwt = require('jsonwebtoken');
+const axios = require('axios');
 const Event = require('../models/eventModelSuperset');
 
 const { MongoURI, JWT_SECRET } = process.env;
@@ -69,6 +70,10 @@ async function connectToDB() {
 
 // Connect to the database
 connectToDB();
+
+// Watch for changes in the events collection using Change Streams
+const { watchEventsCollection } = require('./watcher');
+watchEventsCollection();
 
 // POST route to add a new event
 app.post('/events', authenticateUser, checkUserRole('eventsReadWrite'), async (req, res) => {

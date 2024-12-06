@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d025bfda-b77c-40cb-a5d7-5e3d08d76c65" name="Changes" comment="Updated the middleware to authenticate users??" />
+    <list default="true" id="d025bfda-b77c-40cb-a5d7-5e3d08d76c65" name="Changes" comment="Added authentication requirements to methods.  Hasn't been tested yet." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -76,7 +76,7 @@
       <workItem from="1727469327754" duration="10725000" />
       <workItem from="1728419022991" duration="7649000" />
       <workItem from="1729906669753" duration="89000" />
-      <workItem from="1730233752895" duration="41544000" />
+      <workItem from="1730233752895" duration="42414000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <option name="closed" value="true" />
@@ -222,7 +222,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732941486184</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Added authentication requirements to methods.  Hasn't been tested yet.">
+      <option name="closed" value="true" />
+      <created>1732998635779</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1732998635779</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -256,6 +264,7 @@
     <MESSAGE value="Added get all &amp; get specific method" />
     <MESSAGE value="Messed around with middleware" />
     <MESSAGE value="Updated the middleware to authenticate users??" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated the middleware to authenticate users??" />
+    <MESSAGE value="Added authentication requirements to methods.  Hasn't been tested yet." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added authentication requirements to methods.  Hasn't been tested yet." />
   </component>
 </project>
