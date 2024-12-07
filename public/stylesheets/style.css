@@ -6,6 +6,8 @@ body {
 table {
     width: 100%;
     border-collapse: collapse;
+    background-color: #f9fff2; /* Light and neutral background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     margin-top: 30px;
     background-color: #82e497;
 }
