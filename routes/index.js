@@ -4,7 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const jwt = require('jsonwebtoken');
-const axios = require('axios');
+const rateLimit = require('express-rate-limit');
 const Event = require('../models/eventModelSuperset');
 
 const { MongoURI, JWT_SECRET } = process.env;
@@ -17,6 +17,16 @@ app.use(morgan('dev'));
 // Middleware to parse JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Rate limiting middleware (limits requests to 100 per 15 minutes per IP)
+const generalLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests
+    message: "Too many requests from this IP, please try again later"
+});
+
+// Apply rate limit globally (for all routes)
+app.use(generalLimiter);
 
 // Authentication middleware to verify JWT token
 const authenticateUser = (req, res, next) => {
@@ -70,10 +80,6 @@ async function connectToDB() {
 
 // Connect to the database
 connectToDB();
-
-// Watch for changes in the events collection using Change Streams
-const { watchEventsCollection } = require('./watcher');
-watchEventsCollection();
 
 // POST route to add a new event
 app.post('/events', authenticateUser, checkUserRole('eventsReadWrite'), async (req, res) => {
@@ -169,12 +175,6 @@ app.delete('/events/:id', authenticateUser, checkUserRole('eventsReadWrite'), as
         console.error('Error deleting event:', err);
         res.status(500).json({ error: 'Failed to delete event. Please try again.' });
     }
-});
-
-// Error handling middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack); // Log error details to the console
-    res.status(500).json({ message: 'Something went wrong!' }); // Generic error response
 });
 
 // Start the server
