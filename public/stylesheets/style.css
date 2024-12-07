@@ -30,6 +30,7 @@ th {
 
 td {
     color: #0f460d;
+    padding: 12px;
 }
 
 tr:nth-child(even) {
