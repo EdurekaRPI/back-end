@@ -38,9 +38,11 @@ tr:nth-child(even) {
 }
 
 img {
-    width: 50px;
-    height: auto;
-    border-radius: 5px;
+    width: 100px; /* Increased width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px; /* Enhanced rounding */
+    display: block; /* Ensure proper alignment */
+    margin: 0 auto; /* Center image within the cell */
 }
 
 caption {
