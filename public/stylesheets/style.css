@@ -10,7 +10,7 @@ table {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     margin-top: 30px;
     border-radius: 8px;
-    background-color: #82e497;
+    overflow: hidden;
 }
 
 table, th, td {
