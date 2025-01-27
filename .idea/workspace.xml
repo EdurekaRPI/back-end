@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d025bfda-b77c-40cb-a5d7-5e3d08d76c65" name="Changes" comment="Added authentication requirements to methods.  Hasn't been tested yet." />
+    <list default="true" id="d025bfda-b77c-40cb-a5d7-5e3d08d76c65" name="Changes" comment="Added rate limiting for requests">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/watcher.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/watcher.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,27 +34,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Node.js.app.js.executor": "Run",
-    "Node.js.bin/www.executor": "Run",
-    "Node.js.index.js.executor": "Run",
-    "Node.js.user.js.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Josh-Experimental",
-    "javascript.nodejs.core.library.configured.version": "22.9.0",
-    "javascript.nodejs.core.library.typings.version": "22.7.5",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "node",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Node.js.app.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.bin/www.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.index.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.user.js.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Josh-Experimental&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;22.9.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;22.7.5&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Applications/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/routes" />
@@ -76,7 +81,10 @@
       <workItem from="1727469327754" duration="10725000" />
       <workItem from="1728419022991" duration="7649000" />
       <workItem from="1729906669753" duration="89000" />
-      <workItem from="1730233752895" duration="42414000" />
+      <workItem from="1730233752895" duration="47957000" />
+      <workItem from="1736140363650" duration="6000" />
+      <workItem from="1737494566540" duration="7453000" />
+      <workItem from="1738000096037" duration="2919000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <option name="closed" value="true" />
@@ -230,7 +238,23 @@
       <option name="project" value="LOCAL" />
       <updated>1732998635779</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Added method to watch externally created events.  Need access though to test.">
+      <option name="closed" value="true" />
+      <created>1733498696994</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1733498696994</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Added rate limiting for requests">
+      <option name="closed" value="true" />
+      <created>1733531660797</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1733531660797</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,6 +289,8 @@
     <MESSAGE value="Messed around with middleware" />
     <MESSAGE value="Updated the middleware to authenticate users??" />
     <MESSAGE value="Added authentication requirements to methods.  Hasn't been tested yet." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added authentication requirements to methods.  Hasn't been tested yet." />
+    <MESSAGE value="Added method to watch externally created events.  Need access though to test." />
+    <MESSAGE value="Added rate limiting for requests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added rate limiting for requests" />
   </component>
 </project>
