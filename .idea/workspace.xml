@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d025bfda-b77c-40cb-a5d7-5e3d08d76c65" name="Changes" comment="Added rate limiting for requests">
+    <list default="true" id="d025bfda-b77c-40cb-a5d7-5e3d08d76c65" name="Changes" comment="Fixed bug where we couldn't connect to the database">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
@@ -254,7 +254,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733531660797</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Fixed bug where we couldn't connect to the database">
+      <option name="closed" value="true" />
+      <created>1738104058696</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1738104058696</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -291,6 +299,7 @@
     <MESSAGE value="Added authentication requirements to methods.  Hasn't been tested yet." />
     <MESSAGE value="Added method to watch externally created events.  Need access though to test." />
     <MESSAGE value="Added rate limiting for requests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added rate limiting for requests" />
+    <MESSAGE value="Fixed bug where we couldn't connect to the database" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed bug where we couldn't connect to the database" />
   </component>
 </project>
