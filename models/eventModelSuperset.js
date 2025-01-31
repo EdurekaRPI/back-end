@@ -31,7 +31,7 @@ const eventModelSuperset = new mongoose.Schema({
 
     // Event timeline
     timeline: {
-        title: { type: String, required: true },
+        title: { type: String},
         time: { type: Date, required: true }
     },
 
@@ -39,9 +39,9 @@ const eventModelSuperset = new mongoose.Schema({
     // ?? Press release
     socialMedia: {
         // Social media platform; Instagram, email, Discord, ETC
-        platform: { type: String, required: true },
+        platform: { type: String },
         // Social media handle or link
-        contact: { type: String, required: true },
+        contact: { type: String },
     },
 
     // Catering & Vendors
@@ -54,8 +54,8 @@ const eventModelSuperset = new mongoose.Schema({
         },
         menu: [
             {
-                item: { type: String, required: true }, // e.g., "Grilled Chicken"
-                category: { type: String, required: true }, // e.g., "Main Course", "Dessert"
+                item: { type: String }, // e.g., "Grilled Chicken"
+                category: { type: String }, // e.g., "Main Course", "Dessert"
                 price: { type: Number }, // optional price per item
                 dietaryRestrictions: [String] // e.g., ["Vegetarian", "Gluten-Free"]
             }
@@ -64,11 +64,11 @@ const eventModelSuperset = new mongoose.Schema({
 
     // Budget
     budget: {
-        totalBudget: { type: Number, required: true }, // total allocated budget
+        totalBudget: { type: Number}, // total allocated budget
         expenses: [
             {
-                category: { type: String, required: true }, // e.g., "Catering", "Venue"
-                amount: { type: Number, required: true },
+                category: { type: String }, // e.g., "Catering", "Venue"
+                amount: { type: Number },
                 description: String
             }
         ]
@@ -77,7 +77,7 @@ const eventModelSuperset = new mongoose.Schema({
     // Staffing
     staffing: [
         {
-            role: { type: String, required: true }, // e.g., "Mentor", "Volunteer"
+            role: { type: String }, // e.g., "Mentor", "Volunteer"
             personName: { type: String },
             hoursScheduled: { type: Number }, // total hours for the role
         }
@@ -87,7 +87,7 @@ const eventModelSuperset = new mongoose.Schema({
     transportation: {
         providers: [
             {
-                providerName: { type: String, required: true },
+                providerName: { type: String },
                 contact: {
                     phone: String,
                     email: String
@@ -111,8 +111,8 @@ const eventModelSuperset = new mongoose.Schema({
     // Event performance metrics
     metrics: [
         {
-            metricName: { type: String, required: true }, // e.g., "attendance", "social media views"
-            value: { type: Number, required: true }, // e.g., number of attendees
+            metricName: { type: String }, // e.g., "attendance", "social media views"
+            value: { type: Number }, // e.g., number of attendees
             recordedAt: { type: Date, default: Date.now }, // timestamp of the metric recording
             additionalInfo: { type: String }
         }
