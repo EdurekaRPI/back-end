@@ -1,3 +1,14 @@
-/node_modules
-/.env
-/.idea
+# Ignore node_modules directory
+node_modules/
+
+# Ignore .idea directory
+.idea/
+
+# Ignore .env file
+.env
+
+# Ignore .DS_Store file
+.DS_Store
+
+# Ignore .gitignore file
+.gitignore
