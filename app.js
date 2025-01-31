@@ -62,6 +62,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+// for Concerto testing of pulling data from the repo via the events.js api file
+const eventRoutes = require('./routes/events');
+app.use('/api', eventRoutes);
+
 
 app.use(function (req, res, next) {
   next(createError(404));
