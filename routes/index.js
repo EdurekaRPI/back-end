@@ -221,7 +221,7 @@ app.post('/events', async (req, res) => {
         const savedEvent = await event.save();
         res.status(201).json(savedEvent);
     } catch (err) {
-        res.status(500).json({ error: 'Error creating event' });
+        res.status(500).json({ error: 'Error creating event', error_details: err});
     }
 });
 
@@ -230,7 +230,7 @@ app.get('/events', async (req, res) => {
         const events = await Event.find();
         res.status(200).json(events);
     } catch (err) {
-        res.status(500).json({ error: 'Error fetching events' });
+        res.status(500).json({ error: 'Error fetching events', error_details: err });
     }
 });
 
@@ -242,7 +242,7 @@ app.get('/events/:id', async (req, res) => {
         }
         res.status(200).json(event);
     } catch (err) {
-        res.status(500).json({ error: 'Error fetching event' });
+        res.status(500).json({ error: 'Error fetching event', error_details: err });
     }
 });
 
@@ -254,7 +254,7 @@ app.put('/events/:id', async (req, res) => {
         }
         res.status(200).json(updatedEvent);
     } catch (err) {
-        res.status(500).json({ error: 'Error updating event' });
+        res.status(500).json({ error: 'Error updating event', error_details: err });
     }
 });
 
@@ -266,7 +266,7 @@ app.delete('/events/:id', async (req, res) => {
         }
         res.status(200).json({ message: 'Event deleted successfully' });
     } catch (err) {
-        res.status(500).json({ error: 'Error deleting event' });
+        res.status(500).json({ error: 'Error deleting event', error_details: err });
     }
 });
 
