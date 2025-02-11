@@ -186,7 +186,9 @@
 
 const express = require('express');
 const router = express.Router();
-const Event = require('../models/eventModelSuperset');
+const eventModel = require('../models/eventModelSuperset');
+const Event = eventModel.Event;
+const Archive = eventModel.Archive;
 
 /*
 const app = express();

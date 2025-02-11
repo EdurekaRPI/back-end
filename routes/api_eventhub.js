@@ -1,8 +1,9 @@
 var express = require('express');
 //const app = express();
 var router = express.Router();
-const Event = require('../models/eventModelSuperset');
-
+const eventModel = require('../models/eventModelSuperset');
+const Event = eventModel.Event;
+const Archive = eventModel.Archive;
 
 /*
 EventHub Model:
@@ -82,16 +83,38 @@ router.get('/', function(req, res, next) {
     }
 });
 
-router.post('/newEvent', async (req, res) => {
-	// try {
+router.post('/hubtoedu', async (req, res) => {
+	try {
         const event = new Event(convertEventhubToER(req.body));
-		console.log("created");
+		//console.log("created");
         const savedEvent = await event.save();
-		console.log("saved");
-        res.status(201).json(savedEvent);
-    /*} catch (err) {
+		//console.log("saved");
+        res.status(201).json({ sucess: "Created event!", created_event: savedEvent});
+    } catch (err) {
         res.status(500).json({ error: 'Error creating event', error_details: err});
-    }*/
+    }
 });
+
+router.delete('/hubtoedu', async (req, res) => {
+	//try {
+        const foundEvent = await Event.findOne({hubID: req.params.id})
+		if(!foundEvent){
+			
+		//await mongoose.db("events").collection('eventsArchive').insertOne(foundEvent)
+		const archiveEvent = new Archive(foundEvent.toJSON());
+		//foundEvent.delete();
+		archiveEvent.save();
+		//Archive.insertOne(archiveEvent)
+		
+		const deletedEvent = await Event.findOneAndDelete({hubID: req.params.id});//findByIdAndDelete(req.params.id);
+        if (!deletedEvent) {
+            return res.status(404).json({ error: 'Event not found'});
+        }
+        res.status(200).json({ sucess: "Deleted event!" });
+    // } catch (err) {
+        // res.status(500).json({ error: 'Error deleting event', error_details: err });
+    // }
+});
+    
 
 module.exports = router;

@@ -142,5 +142,6 @@ const eventModelSuperset = new mongoose.Schema({
 }, { versionKey: false });
 
 const Event = mongoose.model('Event', eventModelSuperset);
+const Archive = mongoose.model('eventArchive', eventModelSuperset);
 
-module.exports = Event;
+module.exports = {Event, Archive};
