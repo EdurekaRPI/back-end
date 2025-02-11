@@ -183,37 +183,18 @@
 //     console.log(`Server running on port ${PORT}`);
 // });
 
-require('dotenv').config({ path: '../.env' });
 
 const express = require('express');
-const mongoose = require('mongoose');
 const router = express.Router();
 const Event = require('../models/eventModelSuperset');
 
-const MongoURI = process.env.MongoURI;
-
+/*
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+*/
 
-if (!MongoURI) {
-    console.error('MongoDB URI not defined in .env');
-    process.exit(1);
-}
-
-mongoose.connect(MongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
-
-mongoose.connection.on('connected', () => {
-    console.log('Connected to MongoDB');
-});
-
-mongoose.connection.on('error', (err) => {
-    console.error('MongoDB connection error:', err);
-});
 
 router.post('/events', async (req, res) => {
     try {

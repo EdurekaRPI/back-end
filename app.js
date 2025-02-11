@@ -40,6 +40,9 @@
 //
 // module.exports = app;
 
+require('dotenv').config({ path: './.env' });
+
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -51,6 +54,29 @@ const usersRouter = require('./routes/users');
 const apiEventHubRouter = require('./routes/api_eventhub');
 
 const app = express();
+
+const MongoURI = process.env.MongoURI;
+
+if (!MongoURI) {
+    console.error('MongoDB URI not defined in .env');
+    process.exit(1);
+}
+
+const mongoose = require('mongoose');
+
+mongoose.connect(MongoURI, {
+    //useNewUrlParser: true,    //deprecated
+    //useUnifiedTopology: true, //deprecated
+});
+
+mongoose.connection.on('connected', () => {
+    console.log('Connected to MongoDB');
+});
+
+mongoose.connection.on('error', (err) => {
+    console.error('MongoDB connection error:', err);
+});
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
