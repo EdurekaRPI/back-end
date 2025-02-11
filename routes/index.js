@@ -188,7 +188,9 @@ require('dotenv').config({ path: '../.env' });
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
-const Event = require('../models/eventModelSuperset');
+const eventModel = require('../models/eventModelSuperset');
+const Event = eventModel.Event;
+const Archive = eventModel.Archive;
 
 const MongoURI = process.env.MongoURI;
 

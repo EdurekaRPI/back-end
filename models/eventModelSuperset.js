@@ -1,16 +1,23 @@
 const mongoose = require('mongoose');
 
 const eventModelSuperset = new mongoose.Schema({
+	//event id in other DBs
+	hubID: { type: String, required: false },
+	compassID: { type: String, required: false },
 
     // Superset of Study Compass and Event Hub
-    eventID: { type: String, required: true },
+    //eventID: { type: String, required: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
     typeOfEvent: { type: String, required: true },
     likes: { type: Number, default: 0 },
     creationTimestamp: { type: Date, default: Date.now },
     eventCreator: { type: String, required: true },
-    eventHost: { type: String, required: true },
+    eventHost: { type: String, 
+		required: function() {
+		  return !this.club;
+		} 
+	},
     attendees: { type: Array, default:[] },
     startDateTime: { type: Date, required: true },
     endDateTime: { type: Date, required: true },
@@ -18,7 +25,11 @@ const eventModelSuperset = new mongoose.Schema({
     classroomID: {type: String},
     image: { type: String },
     tags: {type: [String] },
-    club: { type: String, required: true },
+    club: { type: String, 
+		required: function() {
+		  return !this.eventHost;
+		} 
+	},
     rsvpMethod: { type: String },
     externalRef: { type: mongoose.Schema.ObjectId },
 
@@ -31,8 +42,11 @@ const eventModelSuperset = new mongoose.Schema({
 
     // Event timeline
     timeline: {
-        title: { type: String},
-        time: { type: Date, required: true }
+		required: false,
+		type: {
+			title: { type: String},
+			time: { type: Date, required: true },
+		}
     },
 
     // Media
@@ -128,5 +142,6 @@ const eventModelSuperset = new mongoose.Schema({
 }, { versionKey: false });
 
 const Event = mongoose.model('Event', eventModelSuperset);
+const Archive = mongoose.model('eventArchive', eventModelSuperset);
 
-module.exports = Event;
+module.exports = {Event, Archive};
