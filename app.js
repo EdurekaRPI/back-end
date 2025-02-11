@@ -63,7 +63,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/api', apiEventHubRouter);
+app.use('/api/eventhub', apiEventHubRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));
@@ -74,6 +74,11 @@ app.use(function (err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   res.status(err.status || 500);
   res.render('error');
+});
+
+const PORT = process.env.PORT || 5001;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
 
 module.exports = app;
