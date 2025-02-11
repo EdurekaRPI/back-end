@@ -83,7 +83,7 @@ router.get('/', function(req, res, next) {
     }
 });
 
-router.post('/hubtoedu', async (req, res) => {
+router.post('/', async (req, res) => {
 	try {
         const event = new Event(convertEventhubToER(req.body));
 		//console.log("created");
@@ -95,21 +95,19 @@ router.post('/hubtoedu', async (req, res) => {
     }
 });
 
-router.delete('/hubtoedu', async (req, res) => {
+router.delete('/:id', async (req, res) => {
 	//try {
-        const foundEvent = await Event.findOne({hubID: req.params.id})
-		if(!foundEvent){
-			
-		//await mongoose.db("events").collection('eventsArchive').insertOne(foundEvent)
-		const archiveEvent = new Archive(foundEvent.toJSON());
-		//foundEvent.delete();
-		archiveEvent.save();
-		//Archive.insertOne(archiveEvent)
-		
-		const deletedEvent = await Event.findOneAndDelete({hubID: req.params.id});//findByIdAndDelete(req.params.id);
-        if (!deletedEvent) {
+		console.log(req.params);
+        foundEvent = await Event.findOne({hubID: req.params.id});
+		if (!foundEvent) {
             return res.status(404).json({ error: 'Event not found'});
         }
+		foundEvent = foundEvent.toJSON();
+		delete foundEvent["_id"];
+		const archiveEvent = new Archive(foundEvent);
+		
+		console.log(await archiveEvent.save());
+		const deletedEvent = await Event.findOneAndDelete({hubID: req.params.id});//findByIdAndDelete(req.params.id);
         res.status(200).json({ sucess: "Deleted event!" });
     // } catch (err) {
         // res.status(500).json({ error: 'Error deleting event', error_details: err });
