@@ -63,9 +63,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 // for Concerto testing of pulling data from the repo via the events.js api file
+// console.log("Loading events routes...");
 const eventRoutes = require('./routes/events');
 app.use('/api', eventRoutes);
+// console.log("Events routes successfully loaded!");
 
+// app._router.stack.forEach((layer) => {
+//   if (layer.route) {
+//     console.log(layer.route.path);
+//   } else if (layer.name === 'router' && layer.handle.stack) {
+//     layer.handle.stack.forEach((nestedLayer) => {
+//       if (nestedLayer.route) {
+//         console.log(nestedLayer.route.path);
+//       }
+//     });
+//   }
+// });
 
 app.use(function (req, res, next) {
   next(createError(404));

@@ -183,7 +183,7 @@
 //     console.log(`Server running on port ${PORT}`);
 // });
 
-require('dotenv').config({ path: '../.env' });
+require('dotenv').config({ path: './.env' });
 
 const express = require('express');
 const mongoose = require('mongoose');
