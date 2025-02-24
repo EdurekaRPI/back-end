@@ -4,6 +4,10 @@ var router = express.Router();
 const eventModel = require('../models/eventModelSuperset');
 const Event = eventModel.Event;
 const Archive = eventModel.Archive;
+const ApiKeys = require('../models/apiKeys');
+const mongoose = require('mongoose');
+const currentAuthLocation = "EventHub";
+
 
 /*
 EventHub Model:
@@ -47,10 +51,39 @@ Our Model:
 }
 */
 
+const auth = async (req, res, next) => {
+  // Define the logic for authentication (e.g., check for a token, verify credentials)
+  const apiAuthKey = req.get('Api-Key');
+
+  if (apiAuthKey) {
+	apiUser = await ApiKeys.findOne({key: apiAuthKey});
+	if(apiUser){
+		console.log(apiUser);
+		if(apiUser.perms.includes(currentAuthLocation)||apiUser.perms.includes("Admin")){
+			// If authenticated, proceed to the next middleware or route handler
+			next();
+		}
+		else{
+			res.status(401).send('Incorrect perms to access '+currentAuthLocation+' API sector.');
+		}
+	}
+	else{
+		res.status(400).send('Invalid api key.');
+	}
+  } else {
+    // If not authenticated, return an error
+    res.status(400).send('Missing "Api-Key" header.');
+  }
+};
+
+
+// Apply authentication middleware to the protected URLs
+router.use(auth);
 
 function convertEventhubToER(input){
 	//console.log(input.titlle);
 	console.log("converter called");
+	
 	return {
 		hubID: input._id.$oid,
 		title: input.title,
@@ -71,12 +104,33 @@ function convertEventhubToER(input){
 	};
 }
 
+function convertERToEventhub(input){
+	//console.log(input.titlle);
+	console.log("converter called");
+	
+	return {
+		_id:{$oid: input.hubID},
+		title: input.title,
+		description: input.description,
+		likes: input.likes,
+		creationTimestamp:{$date: input.creationTimestamp},
+		poster: input.eventCreator,
+		club: input.eventHost,
+		startDateTime:{$date: input.startDateTime},
+		endDateTime:{$date: input.endDateTime},
+		location: input.location,
+		image: input.image,
+		tags: input.tags,
+		rsvpMethod: input.rsvp,
+		
+		club: input.club,
+	};
+}
 
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 	try {
-        //const updatedEvent = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.status(200).json({sucess:"Nothing here yet..."});
     } catch (err) {
         res.status(500).json({ error: 'Error :(', error_details: err });
@@ -86,9 +140,7 @@ router.get('/', function(req, res, next) {
 router.post('/', async (req, res) => {
 	try {
         const event = new Event(convertEventhubToER(req.body));
-		//console.log("created");
         const savedEvent = await event.save();
-		//console.log("saved");
         res.status(201).json({ sucess: "Created event!", created_event: savedEvent});
     } catch (err) {
         res.status(500).json({ error: 'Error creating event', error_details: err});
@@ -96,8 +148,7 @@ router.post('/', async (req, res) => {
 });
 
 router.delete('/:id', async (req, res) => {
-	//try {
-		console.log(req.params);
+	try {
         foundEvent = await Event.findOne({hubID: req.params.id});
 		if (!foundEvent) {
             return res.status(404).json({ error: 'Event not found'});
@@ -106,13 +157,34 @@ router.delete('/:id', async (req, res) => {
 		delete foundEvent["_id"];
 		const archiveEvent = new Archive(foundEvent);
 		
-		console.log(await archiveEvent.save());
-		const deletedEvent = await Event.findOneAndDelete({hubID: req.params.id});//findByIdAndDelete(req.params.id);
+		await archiveEvent.save();
+		const deletedEvent = await Event.findOneAndDelete({hubID: req.params.id});
         res.status(200).json({ sucess: "Deleted event!" });
-    // } catch (err) {
-        // res.status(500).json({ error: 'Error deleting event', error_details: err });
-    // }
+    } catch (err) {
+        res.status(500).json({ error: 'Error deleting event', error_details: err });
+    }
 });
     
+router.patch('/:id', async (req, res) => {
+	try {
+		console.log("API key: ",req.get('Api-Key'));
+		
+		foundEvent = await Event.findOne({hubID: req.params.id});
+		if (!foundEvent) {
+            return res.status(404).json({ error: 'Event not found'});
+        }
+		console.log(foundEvent.toJSON());
+		foundEvent = convertERToEventhub(foundEvent);
+		console.log(foundEvent);
+		for (var key in req.body) {
+			foundEvent[key] = req.body[key];
+		}
+		console.log(convertEventhubToER(foundEvent));
+		collection = await Event.replaceOne({hubID: req.params.id}, convertEventhubToER(foundEvent));
+        res.status(201).json({ sucess: "Patched event!", editedEvent: foundEvent});
+    } catch (err) {
+        res.status(500).json({ error: 'Error creating event', error_details: err});
+    }
+});
 
 module.exports = router;

@@ -77,6 +77,7 @@ mongoose.connection.on('error', (err) => {
     console.error('MongoDB connection error:', err);
 });
 
+//const {db} = mongoose.connection;
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
