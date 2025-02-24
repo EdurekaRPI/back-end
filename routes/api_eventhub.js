@@ -52,28 +52,32 @@ Our Model:
 */
 
 const auth = async (req, res, next) => {
-  // Define the logic for authentication (e.g., check for a token, verify credentials)
-  const apiAuthKey = req.get('Api-Key');
+	// Define the logic for authentication (e.g., check for a key, verify credentials)
+	const apiAuthKey = req.get('Api-Key');
 
-  if (apiAuthKey) {
-	apiUser = await ApiKeys.findOne({key: apiAuthKey});
-	if(apiUser){
-		console.log(apiUser);
-		if(apiUser.perms.includes(currentAuthLocation)||apiUser.perms.includes("Admin")){
-			// If authenticated, proceed to the next middleware or route handler
-			next();
+	//check if the user gave us an API key in the header
+	if (apiAuthKey) {
+		//look for the given key in the DB
+		apiUser = await ApiKeys.findOne({key: apiAuthKey});
+		//if we found them, check their perms
+		if(apiUser){
+			//check if user has necessary perms (currentAuthLocation should be set to the name of the current route's permission identifier)
+			if(apiUser.perms.includes(currentAuthLocation)||apiUser.perms.includes("Admin")){
+				// If authenticated, proceed to the method handler
+				next();
+			}
+			else{
+				res.status(401).send('Incorrect perms to access '+currentAuthLocation+' API sector.');
+			}
 		}
 		else{
-			res.status(401).send('Incorrect perms to access '+currentAuthLocation+' API sector.');
+			res.status(400).send('Invalid api key.');
 		}
 	}
-	else{
-		res.status(400).send('Invalid api key.');
+	else {
+		// If not authenticated, return an error
+		res.status(400).send('Missing "Api-Key" header.');
 	}
-  } else {
-    // If not authenticated, return an error
-    res.status(400).send('Missing "Api-Key" header.');
-  }
 };
 
 
