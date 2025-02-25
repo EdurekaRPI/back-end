@@ -40,6 +40,9 @@
 //
 // module.exports = app;
 
+require('dotenv').config({ path: './.env' });
+
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -48,8 +51,34 @@ const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const apiEventHubRouter = require('./routes/api_eventhub');
+const eventRoutes = require('./routes/events');
 
 const app = express();
+
+const MongoURI = process.env.MongoURI;
+
+if (!MongoURI) {
+    console.error('MongoDB URI not defined in .env');
+    process.exit(1);
+}
+
+const mongoose = require('mongoose');
+
+mongoose.connect(MongoURI, {
+    //useNewUrlParser: true,    //deprecated
+    //useUnifiedTopology: true, //deprecated
+});
+
+mongoose.connection.on('connected', () => {
+    console.log('Connected to MongoDB');
+});
+
+mongoose.connection.on('error', (err) => {
+    console.error('MongoDB connection error:', err);
+});
+
+//const {db} = mongoose.connection;
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -62,23 +91,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-// for Concerto testing of pulling data from the repo via the events.js api file
-// console.log("Loading events routes...");
-const eventRoutes = require('./routes/events');
+app.use('/api/eventhub', apiEventHubRouter);
 app.use('/api', eventRoutes);
-// console.log("Events routes successfully loaded!");
-
-// app._router.stack.forEach((layer) => {
-//   if (layer.route) {
-//     console.log(layer.route.path);
-//   } else if (layer.name === 'router' && layer.handle.stack) {
-//     layer.handle.stack.forEach((nestedLayer) => {
-//       if (nestedLayer.route) {
-//         console.log(nestedLayer.route.path);
-//       }
-//     });
-//   }
-// });
 
 app.use(function (req, res, next) {
   next(createError(404));
@@ -89,6 +103,11 @@ app.use(function (err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   res.status(err.status || 500);
   res.render('error');
+});
+
+const PORT = process.env.PORT || 5001;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
 
 module.exports = app;
