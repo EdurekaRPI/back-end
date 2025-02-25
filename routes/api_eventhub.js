@@ -86,7 +86,7 @@ router.use(auth);
 
 function convertEventhubToER(input){
 	//console.log(input.titlle);
-	console.log("converter called");
+	console.log("converter 1 called");
 	
 	return {
 		hubID: input._id.$oid,
@@ -97,8 +97,8 @@ function convertEventhubToER(input){
 		creationTimestamp: input.creationTimestamp.$date,
 		eventCreator: input.poster,
 		eventHost: input.club,
-		startDateTime: input.startDateTime.$date,
-		endDateTime: input.endDateTime.$date,
+		startDateTime: new Date(input.startDateTime.$date),
+		endDateTime: new Date(input.endDateTime.$date),
 		location: input.location,
 		image: input.image,
 		tags: input.tags,
@@ -110,7 +110,7 @@ function convertEventhubToER(input){
 
 function convertERToEventhub(input){
 	//console.log(input.titlle);
-	console.log("converter called");
+	console.log("converter 2 called");
 	
 	return {
 		_id:{$oid: input.hubID},
@@ -133,15 +133,19 @@ function convertERToEventhub(input){
 
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/:id', async function(req, res, next) {
 	try {
-        res.status(200).json({sucess:"Nothing here yet..."});
+        foundEvent = await Event.findOne({hubID: req.params.id});
+		if (!foundEvent) {
+            return res.status(404).json({ error: 'Event not found'});
+        }
+		        res.status(200).json({ sucess: "Got event!", event: foundEvent });
     } catch (err) {
-        res.status(500).json({ error: 'Error :(', error_details: err });
+        res.status(500).json({ error: 'Error getting event', error_details: err });
     }
 });
 
-router.post('/', async (req, res) => {
+router.post('/*', async (req, res) => {
 	try {
         const event = new Event(convertEventhubToER(req.body));
         const savedEvent = await event.save();
@@ -177,14 +181,15 @@ router.patch('/:id', async (req, res) => {
 		if (!foundEvent) {
             return res.status(404).json({ error: 'Event not found'});
         }
-		console.log(foundEvent.toJSON());
+		console.log("Found event: \n",foundEvent.toJSON());
 		foundEvent = convertERToEventhub(foundEvent);
-		console.log(foundEvent);
+		console.log("Found event (EventHub format): \n",foundEvent);
 		for (var key in req.body) {
 			foundEvent[key] = req.body[key];
 		}
-		console.log(convertEventhubToER(foundEvent));
+		console.log("Found event (Edureka format): \n",convertEventhubToER(foundEvent));
 		collection = await Event.replaceOne({hubID: req.params.id}, convertEventhubToER(foundEvent));
+		console.log(collection);
         res.status(201).json({ sucess: "Patched event!", editedEvent: foundEvent});
     } catch (err) {
         res.status(500).json({ error: 'Error creating event', error_details: err});
