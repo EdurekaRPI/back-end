@@ -24,7 +24,7 @@ router.get('/events-with-posters', async (req, res) => {
         // res.status(201).json({ success: "It worked!!"});
     } catch (error) {
         console.error('Error fetching events with posters:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({ error: 'Internal server error', details: error});
     }
 });
 
