@@ -75,6 +75,9 @@ cd Edureka
    ```
 
    The server should now be running on `http://localhost:5000`.
+   
+   
+Note: to generate a new API key, use [scrypt](https://www.browserling.com/tools/scrypt) with the standard options, a length of 64, and a salt given in the .env
 
 #### **Frontend Setup**
 1. Navigate to the `frontend` directory and install dependencies:

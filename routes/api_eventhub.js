@@ -7,6 +7,13 @@ const Archive = eventModel.Archive;
 const ApiKeys = require('../models/apiKeys');
 const mongoose = require('mongoose');
 const currentAuthLocation = "EventHub";
+// const argon2 = require('argon2');
+const {
+  scrypt,
+} = require('node:crypto');
+require('dotenv').config({ path: './.env' });
+const APIkeySalt = process.env.APIkeySalt;
+
 
 
 /*
@@ -54,29 +61,34 @@ Our Model:
 const auth = async (req, res, next) => {
 	// Define the logic for authentication (e.g., check for a key, verify credentials)
 	const apiAuthKey = req.get('Api-Key');
-
+	console.log(APIkeySalt);
 	//check if the user gave us an API key in the header
 	if (apiAuthKey) {
 		//look for the given key in the DB
-		apiUser = await ApiKeys.findOne({key: apiAuthKey});
-		//if we found them, check their perms
-		if(apiUser){
-			//check if user has necessary perms (currentAuthLocation should be set to the name of the current route's permission identifier)
-			if(apiUser.perms.includes(currentAuthLocation)||apiUser.perms.includes("Admin")){
-				// If authenticated, proceed to the method handler
-				next();
+		await scrypt(apiAuthKey, APIkeySalt, 64, async (err, keyHash) => {
+			keyHash = keyHash.toString('hex');
+			console.log("API hash: ",keyHash);
+			if (err) throw err;
+			apiUser = await ApiKeys.findOne({key: keyHash});
+			//if we found them, check their perms
+			if(apiUser){
+				//check if user has necessary perms (currentAuthLocation should be set to the name of the current route's permission identifier)
+				if(apiUser.perms.includes(currentAuthLocation)||apiUser.perms.includes("Admin")){
+					// If authenticated, proceed to the method handler
+					next();
+				}
+				else{
+					res.status(401).send({"error":'Incorrect perms to access '+currentAuthLocation+' API sector.'});
+				}
 			}
 			else{
-				res.status(401).send('Incorrect perms to access '+currentAuthLocation+' API sector.');
+				res.status(400).send({"error":'Invalid api key.'});
 			}
-		}
-		else{
-			res.status(400).send('Invalid api key.');
-		}
+		});
 	}
 	else {
 		// If not authenticated, return an error
-		res.status(400).send('Missing "Api-Key" header.');
+		res.status(400).send({"error":'Missing "Api-Key" header.'});
 	}
 };
 
@@ -175,21 +187,22 @@ router.delete('/:id', async (req, res) => {
     
 router.patch('/:id', async (req, res) => {
 	try {
-		console.log("API key: ",req.get('Api-Key'));
+
+		//console.log("API key: ",req.get('Api-Key'));
 		
 		foundEvent = await Event.findOne({hubID: req.params.id});
 		if (!foundEvent) {
             return res.status(404).json({ error: 'Event not found'});
         }
-		console.log("Found event: \n",foundEvent.toJSON());
+		//console.log("Found event: \n",foundEvent.toJSON());
 		foundEvent = convertERToEventhub(foundEvent);
-		console.log("Found event (EventHub format): \n",foundEvent);
+		//console.log("Found event (EventHub format): \n",foundEvent);
 		for (var key in req.body) {
 			foundEvent[key] = req.body[key];
 		}
-		console.log("Found event (Edureka format): \n",convertEventhubToER(foundEvent));
+		//console.log("Found event (Edureka format): \n",convertEventhubToER(foundEvent));
 		collection = await Event.replaceOne({hubID: req.params.id}, convertEventhubToER(foundEvent));
-		console.log(collection);
+		//console.log(collection);
         res.status(201).json({ sucess: "Patched event!", editedEvent: foundEvent});
     } catch (err) {
         res.status(500).json({ error: 'Error creating event', error_details: err});
