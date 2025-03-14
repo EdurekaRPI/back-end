@@ -16,7 +16,6 @@ const APIkeySalt = process.env.APIkeySalt;
 
 
 
-
 /*
 EventHub Model:
 {
@@ -188,6 +187,7 @@ router.delete('/:id', async (req, res) => {
     
 router.patch('/:id', async (req, res) => {
 	try {
+
 		//console.log("API key: ",req.get('Api-Key'));
 		
 		foundEvent = await Event.findOne({hubID: req.params.id});
