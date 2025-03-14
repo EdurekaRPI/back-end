@@ -183,41 +183,22 @@
 //     console.log(`Server running on port ${PORT}`);
 // });
 
-require('dotenv').config({ path: '../.env' });
 
 const express = require('express');
-const mongoose = require('mongoose');
 const router = express.Router();
 const eventModel = require('../models/eventModelSuperset');
 const Event = eventModel.Event;
 const Archive = eventModel.Archive;
 
-const MongoURI = process.env.MongoURI;
-
+/*
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+*/
 
-if (!MongoURI) {
-    console.error('MongoDB URI not defined in .env');
-    process.exit(1);
-}
 
-mongoose.connect(MongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
-
-mongoose.connection.on('connected', () => {
-    console.log('Connected to MongoDB');
-});
-
-mongoose.connection.on('error', (err) => {
-    console.error('MongoDB connection error:', err);
-});
-
-app.post('/events', async (req, res) => {
+router.post('/events', async (req, res) => {
     try {
         const event = new Event(req.body);
         const savedEvent = await event.save();
@@ -227,7 +208,7 @@ app.post('/events', async (req, res) => {
     }
 });
 
-app.get('/events', async (req, res) => {
+router.get('/events', async (req, res) => {
     try {
         const events = await Event.find();
         res.status(200).json(events);
@@ -236,7 +217,7 @@ app.get('/events', async (req, res) => {
     }
 });
 
-app.get('/events/:id', async (req, res) => {
+router.get('/events/:id', async (req, res) => {
     try {
         const event = await Event.findById(req.params.id);
         if (!event) {
@@ -248,7 +229,7 @@ app.get('/events/:id', async (req, res) => {
     }
 });
 
-app.put('/events/:id', async (req, res) => {
+router.put('/events/:id', async (req, res) => {
     try {
         const updatedEvent = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!updatedEvent) {
@@ -260,7 +241,7 @@ app.put('/events/:id', async (req, res) => {
     }
 });
 
-app.delete('/events/:id', async (req, res) => {
+router.delete('/events/:id', async (req, res) => {
     try {
         const deletedEvent = await Event.findByIdAndDelete(req.params.id);
         if (!deletedEvent) {
@@ -271,10 +252,11 @@ app.delete('/events/:id', async (req, res) => {
         res.status(500).json({ error: 'Error deleting event', error_details: err });
     }
 });
-
+/*
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
 
+*/
 module.exports = router;
