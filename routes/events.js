@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const Event = require('../models/eventModelSuperset'); // Adjust path as needed
+const eventModel = require('../models/eventModelSuperset');
+const Event = eventModel.Event;
+// const Archive = eventModel.Archive;
 
 // GET events that have posters
 router.get('/events-with-posters', async (req, res) => {
@@ -18,6 +20,8 @@ router.get('/events-with-posters', async (req, res) => {
         }).select('title description startDateTime endDateTime location image');
 
         res.json(eventsWithPosters);
+        console.log('Events with posters:', eventsWithPosters);
+        // res.status(201).json({ success: "It worked!!"});
     } catch (error) {
         console.error('Error fetching events with posters:', error);
         res.status(500).json({ error: 'Internal server error' });
