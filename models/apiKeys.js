@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     },
     perms: {
         type: [String],
-        enum: ['EventHub', 'Admin', 'Concerto', 'None'],
+        enum: ['EventHub', 'Admin', 'Concerto', 'Frontend', 'None'],
         default: 'None'
     }
 });
