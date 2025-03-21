@@ -4,7 +4,7 @@ const eventModel = require('../models/eventModelSuperset');
 const Event = eventModel.Event;
 
 // Apply authentication middleware to the protected URLs
-const ApiAuth = require('../public/api_auth'); ApiAuth.currentAuthLocation = "Concerto"; router.use(ApiAuth.goAuth);
+ApiAuth = require('../public/api_auth').create("Concerto"); router.use(ApiAuth);
 
 // GET events that have posters
 router.get('/events-with-posters', async (req, res) => {
