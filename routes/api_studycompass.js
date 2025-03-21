@@ -63,5 +63,51 @@ Our Model:
 }
 */
 
+function edurekaToStudyCompass(input) {
+    console.log("Converting Edureka to Study Compass");
+
+    return {
+        name: input.title,
+        type: input.typeOfEvent,
+        hostingId: input.hostingId,
+        hostingType: input.hostingType,
+        going: input.attendees,
+        location: input.location,
+        start_time: input.startDateTime,
+        end_time: input.endDateTime,
+        description: input.description,
+        image: input.image,
+        classroom_id: input.classroomID,
+        visibility: input.visibility,
+        expectedAttendance: input.expectedAttendance,
+        approvalReference: input.approvalReference,
+        status: input.eventStatus,
+        contact: input.contact
+    };
+}
+
+function studyCompassToEdureka(input) {
+    console.log("Converting Study Compass to Edureka");
+
+    return {
+        title: input.name,
+        typeOfEvent: input.type,
+        hostingId: input.hostingId,
+        hostingType: input.hostingType,
+        attendees: input.going,
+        location: input.location,
+        startDateTime: input.start_time,
+        endDateTime: input.end_time,
+        description: input.description,
+        image: input.image,
+        classroomID: input.classroom_id,
+        visibility: input.visibility,
+        expectedAttendance: input.expectedAttendance,
+        approvalReference: input.approvalReference,
+        eventStatus: input.status,
+        contact: input.contact
+    };
+}
+
 
 module.exports = router;
