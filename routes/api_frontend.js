@@ -3,7 +3,7 @@ const router = express.Router();
 const eventModel = require('../models/eventModelSuperset');
 const Event = eventModel.Event;
 // const Archive = eventModel.Archive;
-const currentAuthLocation = "Frontend"; // TODO: add this to our API keys
+const currentAuthLocation = "Frontend";
 const ApiKeys = require('../models/apiKeys');
 
 const {
@@ -50,7 +50,6 @@ const auth = async (req, res, next) => {
 // Apply authentication middleware to the protected URLs
 router.use(auth);
 
-
 router.get('/week-of-events', async (req, res, next) => {
     try {
         // Parse the date from the query parameter
@@ -64,10 +63,12 @@ router.get('/week-of-events', async (req, res, next) => {
             return res.status(400).json({ error: 'Invalid date format. Use YYYY-MM-DD.' });
         }
 
+
         // Find the start (Sunday) and end (Saturday) of the calendar week
         const startOfWeek = new Date(selectedDate);
         startOfWeek.setDate(selectedDate.getDate() - selectedDate.getDay()); // Go to Sunday
         startOfWeek.setHours(0, 0, 0, 0);
+
 
         const endOfWeek = new Date(startOfWeek);
         endOfWeek.setDate(startOfWeek.getDate() + 6); // Move to Saturday
@@ -77,12 +78,15 @@ router.get('/week-of-events', async (req, res, next) => {
 
         // Query events that fall within the week range
         const weeklyEvents = await Event.find({
-            startDateTime: { $gte: startOfWeek, $lte: endOfWeek }
+            startDateTime: { $gte: startOfWeek, $lte: endOfWeek },
         }).select('title description startDateTime endDateTime location');
 
+        // console.log(weeklyEvents);
         res.json(weeklyEvents);
     } catch (error) {
         console.error('Error fetching week of events:', error);
         res.status(500).json({ error: 'Internal server error', details: error });
     }
 })
+
+module.exports = router;
