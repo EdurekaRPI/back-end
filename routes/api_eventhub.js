@@ -6,7 +6,7 @@ const Event = eventModel.Event;
 const Archive = eventModel.Archive;
 
 // Apply authentication middleware to the protected URLs
-const ApiAuth = require('../public/api_auth'); ApiAuth.currentAuthLocation = "EventHub"; router.use(ApiAuth.goAuth);
+ApiAuth = require('../public/api_auth').create("EventHub"); router.use(ApiAuth);
 
 function convertEventhubToER(input){
 	//console.log(input.titlle);
