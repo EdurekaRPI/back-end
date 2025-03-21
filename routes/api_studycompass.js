@@ -4,17 +4,15 @@ var router = express.Router();
 const eventModel = require('../models/eventModelSuperset');
 const Event = eventModel.Event;
 const Archive = eventModel.Archive;
-const ApiKeys = require('../models/apiKeys');
-const mongoose = require('mongoose');
-const currentAuthLocation = "EventHub";
-// const argon2 = require('argon2');
-const {
-    scrypt,
-} = require('node:crypto');
 require('dotenv').config({ path: './.env' });
-const APIkeySalt = process.env.APIkeySalt;
+// Apply authentication middleware to the protected URLs
+const ApiAuth = require('../public/api_auth');
+ApiAuth.currentAuthLocation = "Concerto";
+router.use(ApiAuth.goAuth);
 
-
+// TODO: method for study compass to call whenever new event is created on their end
+// TODO: conversion going both ways
+// TODO: watcher to notify study compass if we change one of their events
 
 /*
 StudyCompass Model:
