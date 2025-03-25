@@ -63,6 +63,7 @@ Our Model:
 }
 */
 
+// Converts an event object from Edureka format to Study Compass format
 function edurekaToStudyCompass(input) {
     console.log("Converting Edureka to Study Compass");
 
@@ -86,6 +87,7 @@ function edurekaToStudyCompass(input) {
     };
 }
 
+// Converts an event object from Study Compass format to Edureka format
 function studyCompassToEdureka(input) {
     console.log("Converting Study Compass to Edureka");
 
@@ -109,5 +111,30 @@ function studyCompassToEdureka(input) {
     };
 }
 
+// Retrieves an event by its compassID
+router.get('/:id', async function(req, res, next) {
+    try {
+        foundEvent = await Event.findOne({compassID: req.params.id});
+        if (!foundEvent) {
+            return res.status(404).json({ error: 'Event not found'});
+        }
+        res.status(200).json({ sucess: "Got event!", event: foundEvent });
+
+    } catch (err) {
+        res.status(500).json({ error: 'Error getting event', error_details: err });
+    }
+});
+
+// Creates a new event using request body data and saves it to the database
+router.post('/*', async (req, res) => {
+    try {
+        const event = new Event(studyCompassToEdureka(req.body));
+        const savedEvent = await event.save();
+        res.status(201).json({ sucess: "Created event!", created_event: savedEvent});
+
+    } catch (err) {
+        res.status(500).json({ error: 'Error creating event', error_details: err});
+    }
+});
 
 module.exports = router;
