@@ -137,4 +137,49 @@ router.post('/*', async (req, res) => {
     }
 });
 
+// Deletes an event by its hubID, archives it before deletion, and returns success response
+router.delete('/:id', async (req, res) => {
+    try {
+        foundEvent = await Event.findOne({compassID: req.params.id});
+        if (!foundEvent) {
+            return res.status(404).json({ error: 'Event not found'});
+        }
+        foundEvent = foundEvent.toJSON();
+        delete foundEvent["_id"];
+        const archiveEvent = new Archive(foundEvent);
+
+        await archiveEvent.save();
+        const deletedEvent = await Event.findOneAndDelete({compassID: req.params.id});
+        res.status(200).json({ sucess: "Deleted event!" });
+
+    } catch (err) {
+        res.status(500).json({ error: 'Error deleting event', error_details: err });
+    }
+});
+
+// Updates an existing event by its hubID with new data from the request body
+router.patch('/:id', async (req, res) => {
+    try {
+        foundEvent = await Event.findOne({compassID: req.params.id});
+        if (!foundEvent) {
+            return res.status(404).json({ error: 'Event not found'});
+        }
+
+        //console.log("Found event: \n",foundEvent.toJSON());
+        foundEvent = edurekaToStudyCompass(foundEvent);
+        // console.log("Found event (StudyCompass format): \n", foundEvent);
+        for (var key in req.body) {
+            foundEvent[key] = req.body[key];
+        }
+
+        // console.log("Found event (Edureka format): \n", studyCompassToEdureka(foundEvent));
+        collection = await Event.replaceOne({compassID: req.params.id}, studyCompassToEdureka(foundEvent));
+        //console.log(collection);
+        res.status(201).json({ sucess: "Patched event!", editedEvent: foundEvent});
+
+    } catch (err) {
+        res.status(500).json({ error: 'Error creating event', error_details: err});
+    }
+});
+
 module.exports = router;
