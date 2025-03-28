@@ -8,7 +8,7 @@ const eventModelSuperset = new mongoose.Schema({
     // Superset of Study Compass and Event Hub
     // eventID: { type: String, required: true },
     title: { type: String, required: true, trim: true },
-    description: { type: String, required: true },
+    description: { type: String, required: false },
     typeOfEvent: { type: String, required: true },
     likes: { type: Number, default: 0 },
     creationTimestamp: { type: Date, default: Date.now },
@@ -21,7 +21,7 @@ const eventModelSuperset = new mongoose.Schema({
     hostingId: { type: Schema.Types.ObjectId, required: true, refPath: 'hostingType' },
     hostingType: { type: String, required: true, enum: ['User', 'Org'] },
     attendees: { type: Array, default:[] },
-    expectedAttendance: { type: Number, required: true },
+    expectedAttendance: { type: Number, required: false },
     approvalReference: { type: Schema.Types.ObjectId, ref: 'ApprovalInstance' },
     eventStatus: { type: String, required: true, enum: ['approved', 'pending', 'rejected', 'not-applicable'], default: 'not-applicable' },
     startDateTime: { type: Date, required: true },
