@@ -13,6 +13,7 @@ const usersRouter = require('./routes/users');
 const apiEventHubRouter = require('./routes/api_eventhub');
 const apiConcertoRouter = require('./routes/api_concerto');
 const apiFrontendRouter = require('./routes/api_frontend');
+const apiAdminRouter = require('./routes/api_admin');
 
 const app = express();
 
@@ -58,6 +59,7 @@ app.use('/users', usersRouter);
 app.use('/api/eventhub', apiEventHubRouter);
 app.use('/api/concerto', apiConcertoRouter);
 app.use('/api/frontend', apiFrontendRouter);
+app.use('/api/admin', apiAdminRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));

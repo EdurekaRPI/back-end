@@ -13,6 +13,7 @@ const eventModelSuperset = new mongoose.Schema({
     likes: { type: Number, default: 0 },
     creationTimestamp: { type: Date, default: Date.now },
     eventCreator: { type: String, required: true },
+
     eventHost: { type: String, 
 		required: function() {
 		  return !this.club;
