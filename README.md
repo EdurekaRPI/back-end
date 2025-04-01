@@ -56,43 +56,40 @@ cd Edureka
 1. Install the required dependencies:
 
    ```bash
-   tbd
-   
+   npm install
    ```
 
 2. Create a `.env` file in the `backend` directory and add the following environment variables:
 
    ```bash
-   tbd
-   
+   MongoURI="example"
+   APIkeySalt="from_generated_below"
    ```
+Note: We do not allow access to our database, however this code is usable on any database using the correct URI
 
 3. Run the backend server:
 
    ```bash
-   tbd
-   
+   node app.js
    ```
 
-   The server should now be running on `http://localhost:5000`.
+   The server should now be running on `http://localhost:5001` by default.
    
    
-Note: to generate a new API key, use [scrypt](https://www.browserling.com/tools/scrypt) with the standard options, a length of 64, and a salt given in the .env
+Note: To generate a new API key, use [scrypt](https://www.browserling.com/tools/scrypt) with the standard options, a length of 64, and a salt given in the .env
 
 #### **Frontend Setup**
 1. Navigate to the `frontend` directory and install dependencies:
 
    ```bash
-   tbd
-   
+   npm install
    ```
 
 2. Start the frontend development server:
 
    ```bash
-   tbd
-   
-
+   cd ./front-end
+   npm run dev
    ```
 
 ---
