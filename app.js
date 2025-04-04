@@ -1,9 +1,27 @@
-require('dotenv').config({ path: './.env' });
+const dotenv = require('dotenv');
+const path = require('path');
+
+
+// Try loading from a specific path first
+const envPath1 = path.resolve(__dirname, './.env');
+const result1 = dotenv.config({ path: envPath1 });
+
+// If loading from the first path fails, try a second path
+if (result1.error) {
+  const envPath2 = path.resolve(__dirname, '../.env');
+  const result2 = dotenv.config({ path: envPath2 });
+
+  if (result2.error) {
+    throw result2.error;
+  }
+  console.log('Loaded environment variables from', envPath2);
+} else {
+  console.log('Loaded environment variables from', envPath1);
+}
 
 
 const createError = require('http-errors');
 const express = require('express');
-const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
