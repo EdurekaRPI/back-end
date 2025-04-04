@@ -18,11 +18,11 @@ const eventModelSuperset = new mongoose.Schema({
 		  return !this.club;
 		}
 	},
-    hostingId: { type: Schema.Types.ObjectId, required: true, refPath: 'hostingType' },
-    hostingType: { type: String, required: true, enum: ['User', 'Org'] },
+    hostingType: { type: String, required: true }, // e.g., 'User', 'Club', etc.
+    hostingId: { type: mongoose.Schema.Types.ObjectId, required: false, refPath: 'hostingType' },
     attendees: { type: Array, default:[] },
     expectedAttendance: { type: Number, required: false },
-    approvalReference: { type: Schema.Types.ObjectId, ref: 'ApprovalInstance' },
+    approvalReference: { type: mongoose.Schema.Types.ObjectId, required: false, refPath: 'ApprovalInstance' },
     eventStatus: { type: String, required: true, enum: ['approved', 'pending', 'rejected', 'not-applicable'], default: 'not-applicable' },
     startDateTime: { type: Date, required: true },
     endDateTime: { type: Date, required: true },
