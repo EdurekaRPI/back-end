@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d025bfda-b77c-40cb-a5d7-5e3d08d76c65" name="Changes" comment="Fixed a bug with the schema" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;joshparent&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/EdurekaRPI/Edureka.git&quot;,
+    &quot;accountId&quot;: &quot;8272e78d-616b-438e-acc7-92329e98f6b4&quot;
+  }
+}</component>
+  <component name="LLMProjectSettings">
+    <option name="turned_on" value="false" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2mX3w1KOe0YLIpQce3P5MTseYGO" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Node.js.app.js.executor": "Run",
+    "Node.js.bin/www.executor": "Run",
+    "Node.js.eventModelSuperset.js.executor": "Run",
+    "Node.js.index.js.executor": "Run",
+    "Node.js.user.js.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "studycompass__integration",
+    "javascript.nodejs.core.library.configured.version": "22.9.0",
+    "javascript.nodejs.core.library.typings.version": "22.9.4",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "node",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/routes" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-WS-243.26053.12" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d025bfda-b77c-40cb-a5d7-5e3d08d76c65" name="Changes" comment="" />
+      <created>1727209328304</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1727209328304</updated>
+      <workItem from="1727209329329" duration="144000" />
+      <workItem from="1727209482808" duration="5681000" />
+      <workItem from="1727469327754" duration="10725000" />
+      <workItem from="1728419022991" duration="7649000" />
+      <workItem from="1729906669753" duration="89000" />
+      <workItem from="1730233752895" duration="47957000" />
+      <workItem from="1736140363650" duration="6000" />
+      <workItem from="1737494566540" duration="7453000" />
+      <workItem from="1738000096037" duration="2919000" />
+      <workItem from="1742353919997" duration="7188000" />
+      <workItem from="1742692545856" duration="122000" />
+      <workItem from="1742692935826" duration="9058000" />
+      <workItem from="1743193036030" duration="4895000" />
+    </task>
+    <task id="LOCAL-00001" summary="Test">
+      <option name="closed" value="true" />
+      <created>1727211354801</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1727211354801</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Got database running locally on my machine">
+      <option name="closed" value="true" />
+      <created>1727472673274</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1727472673274</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added very basic functionality/database models">
+      <option name="closed" value="true" />
+      <created>1727816651355</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1727816651355</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Updated models for more detailed events.  Bug does exist when trying to add event with a user id.">
+      <option name="closed" value="true" />
+      <created>1728422739571</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1728422739571</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Created a new branch, updated/added models">
+      <option name="closed" value="true" />
+      <created>1729632094100</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1729632094100</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added functionality for new model">
+      <option name="closed" value="true" />
+      <created>1729906710535</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1729906710535</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Fixed a bug where users were being searched by database _id instead of their userID.  Also added a file that I forgot to add to Git.">
+      <option name="closed" value="true" />
+      <created>1730236315534</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1730236315534</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added other groups models and comparison document">
+      <option name="closed" value="true" />
+      <created>1730496840049</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1730496840049</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added other groups models and comparison document">
+      <option name="closed" value="true" />
+      <created>1730496865458</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1730496865458</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Added other groups models and comparison document">
+      <option name="closed" value="true" />
+      <created>1730496877124</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1730496877124</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Added a new model as a superset of Event Hub and Study Compass.  Began adding Edureka specific data as well.">
+      <option name="closed" value="true" />
+      <created>1730844826239</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1730844826239</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Added the majority of the remaining Edureka specific event information to the schema">
+      <option name="closed" value="true" />
+      <created>1731103354395</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1731103354395</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Added event model to main">
+      <option name="closed" value="true" />
+      <created>1731104541021</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1731104541021</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Updated the schema.  Also added the post and delete methods.">
+      <option name="closed" value="true" />
+      <created>1732055332342</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1732055332342</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Added edit method">
+      <option name="closed" value="true" />
+      <created>1732219932150</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1732219932150</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Added get all &amp; get specific method">
+      <option name="closed" value="true" />
+      <created>1732239435487</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1732239435487</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Messed around with middleware">
+      <option name="closed" value="true" />
+      <created>1732872814280</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1732872814280</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Updated the middleware to authenticate users??">
+      <option name="closed" value="true" />
+      <created>1732941486184</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1732941486184</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Added authentication requirements to methods.  Hasn't been tested yet.">
+      <option name="closed" value="true" />
+      <created>1732998635779</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1732998635779</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Added method to watch externally created events.  Need access though to test.">
+      <option name="closed" value="true" />
+      <created>1733498696994</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1733498696994</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Added rate limiting for requests">
+      <option name="closed" value="true" />
+      <created>1733531660797</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1733531660797</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Added route for study compass API">
+      <option name="closed" value="true" />
+      <created>1742354250634</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1742354250634</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Added the new API authentication file to my branch">
+      <option name="closed" value="true" />
+      <created>1742589817975</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1742589817975</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Added functions to convert between Study Compass and Eduerka events and vice versa">
+      <option name="closed" value="true" />
+      <created>1742592225604</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1742592225604</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Added get and post methods">
+      <option name="closed" value="true" />
+      <created>1742935753134</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1742935753134</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Added delete and patch methods">
+      <option name="closed" value="true" />
+      <created>1742938034028</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1742938034028</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Made small change to schema">
+      <option name="closed" value="true" />
+      <created>1743193953690</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1743193953690</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Fixed a bug with the schema">
+      <option name="closed" value="true" />
+      <created>1743194380532</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1743194380532</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Got database running locally on my machine" />
+    <MESSAGE value="Added very basic functionality/database models" />
+    <MESSAGE value="Updated models for more detailed events.  Bug does exist when trying to add event with a user id." />
+    <MESSAGE value="Created a new branch, updated/added models" />
+    <MESSAGE value="Added functionality for new model" />
+    <MESSAGE value="Fixed a bug where users were being searched by database _id instead of their userID.  Also added a file that I forgot to add to Git." />
+    <MESSAGE value="Added other groups models and comparison document" />
+    <MESSAGE value="Added a new model as a superset of Event Hub and Study Compass.  Began adding Edureka specific data as well." />
+    <MESSAGE value="Added the majority of the remaining Edureka specific event information to the schema" />
+    <MESSAGE value="Added event model to main" />
+    <MESSAGE value="Updated the schema.  Also added the post and delete methods." />
+    <MESSAGE value="Added edit method" />
+    <MESSAGE value="Added get all &amp; get specific method" />
+    <MESSAGE value="Messed around with middleware" />
+    <MESSAGE value="Updated the middleware to authenticate users??" />
+    <MESSAGE value="Added authentication requirements to methods.  Hasn't been tested yet." />
+    <MESSAGE value="Added method to watch externally created events.  Need access though to test." />
+    <MESSAGE value="Added rate limiting for requests" />
+    <MESSAGE value="Added route for study compass API" />
+    <MESSAGE value="Added the new API authentication file to my branch" />
+    <MESSAGE value="Added functions to convert between Study Compass and Eduerka events and vice versa" />
+    <MESSAGE value="Added get and post methods" />
+    <MESSAGE value="Added delete and patch methods" />
+    <MESSAGE value="Made small change to schema" />
+    <MESSAGE value="Fixed a bug with the schema" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed a bug with the schema" />
+  </component>
+</project>
