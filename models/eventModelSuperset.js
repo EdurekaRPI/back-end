@@ -13,11 +13,12 @@ const eventModelSuperset = new mongoose.Schema({
     likes: { type: Number, default: 0 },
     creationTimestamp: { type: Date, default: Date.now },
     eventCreator: { type: String, required: true },
-    eventHost: { type: String, 
-		required: function() {
-		  return !this.club;
-		}
-	},
+    // eventHost: { type: String,
+	// 	required: function() {
+	// 	  return !this.club;
+	// 	}
+	// },
+    eventHost: { type: String, required: false },  // TODO: Change back/fix/figure out
     hostingType: { type: String, required: true }, // e.g., 'User', 'Club', etc.
     hostingId: { type: mongoose.Schema.Types.ObjectId, required: false, refPath: 'hostingType' },
     attendees: { type: Array, default:[] },
@@ -30,11 +31,12 @@ const eventModelSuperset = new mongoose.Schema({
     classroomID: {type: String},
     image: { type: String },
     tags: {type: [String] },
-    club: { type: String, 
-		required: function() {
-		  return !this.eventHost;
-		} 
-	},
+    // club: { type: String,
+	// 	required: function() {
+	// 	  return !this.eventHost;
+	// 	}
+	// },
+    club: { type: String, required: false }, // TODO: Change back/fix/figure out
     rsvpMethod: { type: String },
     contact: { type: String, required: false },
     visibility: { type: String, required: false },

@@ -6,9 +6,7 @@ const Event = eventModel.Event;
 const Archive = eventModel.Archive;
 require('dotenv').config({ path: './.env' });
 // Apply authentication middleware to the protected URLs
-const ApiAuth = require('../public/api_auth');
-ApiAuth.currentAuthLocation = "StudyCompass";
-router.use(ApiAuth.goAuth);
+ApiAuth = require('../public/api_auth').create("StudyCompass"); router.use(ApiAuth);
 
 // TODO: method for study compass to call whenever new event is created on their end
 // TODO: conversion going both ways
