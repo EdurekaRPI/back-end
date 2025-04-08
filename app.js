@@ -1,9 +1,27 @@
-require('dotenv').config({ path: './.env' });
+const dotenv = require('dotenv');
+const path = require('path');
+
+
+// Try loading from a specific path first
+const envPath1 = path.resolve(__dirname, './.env');
+const result1 = dotenv.config({ path: envPath1 });
+
+// If loading from the first path fails, try a second path
+if (result1.error) {
+  const envPath2 = path.resolve(__dirname, '../.env');
+  const result2 = dotenv.config({ path: envPath2 });
+
+  if (result2.error) {
+    throw result2.error;
+  }
+  console.log('Loaded environment variables from', envPath2);
+} else {
+  console.log('Loaded environment variables from', envPath1);
+}
 
 
 const createError = require('http-errors');
 const express = require('express');
-const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
@@ -12,6 +30,8 @@ const usersRouter = require('./routes/users');
 const apiEventHubRouter = require('./routes/api_eventhub');
 const apiConcertoRouter = require('./routes/api_concerto');
 const apiStudyCompassRouter = require('./routes/api_studycompass');
+const apiFrontendRouter = require('./routes/api_frontend');
+const apiAdminRouter = require('./routes/api_admin');
 
 const app = express();
 
@@ -53,6 +73,8 @@ app.use('/users', usersRouter);
 app.use('/api/eventhub', apiEventHubRouter);
 app.use('/api/concerto', apiConcertoRouter);
 app.use('/api/studycompass', apiStudyCompassRouter);
+app.use('/api/frontend', apiFrontendRouter);
+app.use('/api/admin', apiAdminRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));
