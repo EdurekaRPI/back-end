@@ -123,6 +123,17 @@ router.get('/:id', async function(req, res, next) {
     }
 });
 
+// Retrieves all events and returns them in Study Compass format
+router.get('/', async function(req, res, next) {
+    try {
+        const allEvents = await Event.find({});
+        const studyCompassFormattedEvents = allEvents.map(event => edurekaToStudyCompass(event));
+        res.status(200).json({ success: "Retrieved all events!", events: studyCompassFormattedEvents });
+    } catch (err) {
+        res.status(500).json({ error: 'Error retrieving all events', error_details: err });
+    }
+});
+
 // Creates a new event using request body data and saves it to the database
 router.post('/*', async (req, res) => {
     try {
